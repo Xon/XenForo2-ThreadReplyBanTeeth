@@ -19,11 +19,11 @@ class Post extends XFCP_Post
 
         if (\XF::app()->options()->SV_ThreadReplyBanTeeth_EditBan)
         {
+            /** @var Thread $thread */
+            $thread = $this->Thread;
+            if ($thread->isReplyBanned())
             {
-                if ($this->isReplyBanned())
-                {
-                    return false;
-                }
+                return false;
             }
         }
 
@@ -45,7 +45,9 @@ class Post extends XFCP_Post
 
         if (\XF::app()->options()->SV_ThreadReplyBanTeeth_LikeBan)
         {
-            if ($this->isReplyBanned())
+            /** @var Thread $thread */
+            $thread = $this->Thread;
+            if ($thread->isReplyBanned())
             {
                 return false;
             }
@@ -69,21 +71,14 @@ class Post extends XFCP_Post
 
         if (\XF::app()->options()->SV_ThreadReplyBanTeeth_DeleteBan)
         {
-            if ($this->isReplyBanned())
+            /** @var Thread $thread */
+            $thread = $this->Thread;
+            if ($thread->isReplyBanned())
             {
                 return false;
             }
         }
 
         return true;
-    }
-
-    protected function isReplyBanned()
-    {
-        /** @var \XF\Mvc\Entity\AbstractCollection $replyBans */
-        $replyBans = $this->Thread->ReplyBans;
-        $visitor = \XF::visitor();
-
-        return $replyBans->offsetExists($visitor->user_id);
     }
 }

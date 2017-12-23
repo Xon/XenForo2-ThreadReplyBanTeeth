@@ -6,4 +6,5 @@
 namespace SV\ThreadReplyBanTeeth\XF\Entity
 {
 	class XFCP_Post extends \XF\Entity\Post {}
+	class XFCP_Thread extends \XF\Entity\Thread {}
 }
