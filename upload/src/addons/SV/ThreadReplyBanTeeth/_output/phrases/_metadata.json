@@ -1,0 +1,50 @@
+{
+    "option.SV_ThreadReplyBanTeeth_DeleteBan.txt": {
+        "global_cache": false,
+        "version_id": 1000031,
+        "version_string": "1.0.0 Beta 1",
+        "hash": "58b4ca0ae5c743881de713de7713523d"
+    },
+    "option.SV_ThreadReplyBanTeeth_EditBan.txt": {
+        "global_cache": false,
+        "version_id": 1000031,
+        "version_string": "1.0.0 Beta 1",
+        "hash": "13762da47fe0e1e9faaf58989c56bace"
+    },
+    "option.SV_ThreadReplyBanTeeth_LikeBan.txt": {
+        "global_cache": false,
+        "version_id": 1000031,
+        "version_string": "1.0.0 Beta 1",
+        "hash": "e1bfbf0f7271b1a55009780bef4723f8"
+    },
+    "option_explain.SV_ThreadReplyBanTeeth_DeleteBan.txt": {
+        "global_cache": false,
+        "version_id": 1000031,
+        "version_string": "1.0.0 Beta 1",
+        "hash": "7d92bc103a065f74d9d29b5afc724d98"
+    },
+    "option_explain.SV_ThreadReplyBanTeeth_EditBan.txt": {
+        "global_cache": false,
+        "version_id": 1000031,
+        "version_string": "1.0.0 Beta 1",
+        "hash": "4dcb868e23a6af99b9519ad7fcf240db"
+    },
+    "option_explain.SV_ThreadReplyBanTeeth_LikeBan.txt": {
+        "global_cache": false,
+        "version_id": 1000031,
+        "version_string": "1.0.0 Beta 1",
+        "hash": "2b1e9e021283c0f201ea82d7eacfe8a6"
+    },
+    "option_group.SV_ThreadReplyBanTeeth.txt": {
+        "global_cache": false,
+        "version_id": 1000031,
+        "version_string": "1.0.0 Beta 1",
+        "hash": "b54bde815fc93abfc43bf8482a38ac84"
+    },
+    "option_group_description.SV_ThreadReplyBanTeeth.txt": {
+        "global_cache": false,
+        "version_id": 2000070,
+        "version_string": "2.0.0",
+        "hash": "c149afa9c657f92c772c9334f1cedc60"
+    }
+}

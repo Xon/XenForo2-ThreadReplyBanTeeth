@@ -1,0 +1,1 @@
+Prevent someone who has been thread reply banned to deleting their posts in that thread.
