@@ -2,25 +2,26 @@
 
 namespace SV\ThreadReplyBanTeeth\XF\Entity;
 
-class Post extends XFCP_Post {
+class Post extends XFCP_Post
+{
     /**
      * @param null $error
      * @return bool
      */
-    public function canEdit(&$error = null) {
+    public function canEdit(&$error = null)
+    {
         $hasPermission = parent::canEdit($error);
 
-        if(!$hasPermission) {
+        if (!$hasPermission)
+        {
             return false;
         }
-
-        $thread = $this->Thread;
-        $visitor = \XF::visitor();
 
         if (\XF::app()->options()->SV_ThreadReplyBanTeeth_EditBan)
         {
             {
-                if($this->isReplyBanned()) {
+                if ($this->isReplyBanned())
+                {
                     return false;
                 }
             }
@@ -33,19 +34,19 @@ class Post extends XFCP_Post {
      * @param null $error
      * @return bool
      */
-    public function canLike(&$error = null) {
+    public function canLike(&$error = null)
+    {
         $hasPermission = parent::canLike($error);
 
-        if(!$hasPermission) {
+        if (!$hasPermission)
+        {
             return false;
         }
 
-        $thread = $this->Thread;
-        $visitor = \XF::visitor();
-
         if (\XF::app()->options()->SV_ThreadReplyBanTeeth_LikeBan)
         {
-            if($this->isReplyBanned()) {
+            if ($this->isReplyBanned())
+            {
                 return false;
             }
         }
@@ -57,19 +58,19 @@ class Post extends XFCP_Post {
      * @param null $error
      * @return bool
      */
-    public function canDelete($type = 'soft', &$error = null) {
+    public function canDelete($type = 'soft', &$error = null)
+    {
         $hasPermission = parent::canDelete($type, $error);
 
-        if(!$hasPermission) {
+        if (!$hasPermission)
+        {
             return false;
         }
 
-        $thread = $this->Thread;
-        $visitor = \XF::visitor();
-
         if (\XF::app()->options()->SV_ThreadReplyBanTeeth_DeleteBan)
         {
-            if($this->isReplyBanned()) {
+            if ($this->isReplyBanned())
+            {
                 return false;
             }
         }
@@ -77,7 +78,8 @@ class Post extends XFCP_Post {
         return true;
     }
 
-    protected function isReplyBanned() {
+    protected function isReplyBanned()
+    {
         /** @var \XF\Mvc\Entity\AbstractCollection $replyBans */
         $replyBans = $this->Thread->ReplyBans;
         $visitor = \XF::visitor();
