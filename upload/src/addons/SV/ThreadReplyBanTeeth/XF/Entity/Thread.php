@@ -2,6 +2,8 @@
 
 namespace SV\ThreadReplyBanTeeth\XF\Entity;
 
+use XF\Mvc\Entity\Structure;
+
 class Thread extends XFCP_Thread
 {
     /**
@@ -90,9 +92,14 @@ class Thread extends XFCP_Thread
      */
     public function isReplyBanned()
     {
+        $visitor = \XF::visitor();
+        if(!$visitor->user_id)
+        {
+            return false;
+        }
+
         /** @var \XF\Mvc\Entity\AbstractCollection $replyBans */
         $replyBans = $this->ReplyBans;
-        $visitor = \XF::visitor();
 
         if (isset($replyBans[$visitor->user_id]))
         {
@@ -101,5 +108,22 @@ class Thread extends XFCP_Thread
         }
 
         return true;
+    }
+
+    public static function getStructure(Structure $structure)
+    {
+        $structure = parent::getStructure($structure);
+
+        $options = \XF::app()->options();
+        $visitor = \XF::visitor();
+        if ($visitor->user_id &&
+            ($options->SV_ThreadReplyBanTeeth_EditBan ||
+             $options->SV_ThreadReplyBanTeeth_LikeBan ||
+             $options->SV_ThreadReplyBanTeeth_DeleteBan))
+        {
+            $structure->defaultWith[] = 'ReplyBans|' . $visitor->user_id;
+        }
+
+        return $structure;
     }
 }
