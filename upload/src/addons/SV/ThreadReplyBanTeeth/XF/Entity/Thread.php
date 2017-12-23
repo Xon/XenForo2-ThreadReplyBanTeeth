@@ -66,10 +66,6 @@ class Thread extends XFCP_Thread
     {
         /** @noinspection PhpUndefinedMethodInspection */
         $hasPermission = parent::canEditThreadTitle($error);
-        if(empty($result))
-        {
-            return false;
-        }
 
         if (!$hasPermission)
         {
