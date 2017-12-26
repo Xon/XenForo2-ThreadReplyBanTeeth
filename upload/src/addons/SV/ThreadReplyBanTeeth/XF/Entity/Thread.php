@@ -100,7 +100,7 @@ class Thread extends XFCP_Thread
         if (isset($replyBans[$visitor->user_id]))
         {
             $replyBan = $replyBans[$visitor->user_id];
-            return ($replyBan && (!$replyBan->expiry_date || $replyBan->expiry_date > time()));
+            return ($replyBan && (!$replyBan->expiry_date || $replyBan->expiry_date > \XF::$time));
         }
 
         return true;
