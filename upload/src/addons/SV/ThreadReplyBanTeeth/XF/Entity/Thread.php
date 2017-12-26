@@ -21,11 +21,9 @@ class Thread extends XFCP_Thread
 
         if (\XF::app()->options()->SV_ThreadReplyBanTeeth_EditBan)
         {
+            if ($this->isReplyBanned())
             {
-                if ($this->isReplyBanned())
-                {
-                    return false;
-                }
+                return false;
             }
         }
 
@@ -89,7 +87,7 @@ class Thread extends XFCP_Thread
     public function isReplyBanned()
     {
         $visitor = \XF::visitor();
-        if(!$visitor->user_id)
+        if (!$visitor->user_id)
         {
             return false;
         }
@@ -100,6 +98,7 @@ class Thread extends XFCP_Thread
         if (isset($replyBans[$visitor->user_id]))
         {
             $replyBan = $replyBans[$visitor->user_id];
+
             return ($replyBan && (!$replyBan->expiry_date || $replyBan->expiry_date > \XF::$time));
         }
 
