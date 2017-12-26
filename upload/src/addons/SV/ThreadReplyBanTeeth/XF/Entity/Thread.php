@@ -105,21 +105,4 @@ class Thread extends XFCP_Thread
 
         return true;
     }
-
-    public static function getStructure(Structure $structure)
-    {
-        $structure = parent::getStructure($structure);
-
-        $options = \XF::app()->options();
-        $visitor = \XF::visitor();
-        if ($visitor->user_id &&
-            ($options->SV_ThreadReplyBanTeeth_EditBan ||
-             $options->SV_ThreadReplyBanTeeth_LikeBan ||
-             $options->SV_ThreadReplyBanTeeth_DeleteBan))
-        {
-            $structure->defaultWith[] = 'ReplyBans|' . $visitor->user_id;
-        }
-
-        return $structure;
-    }
 }
