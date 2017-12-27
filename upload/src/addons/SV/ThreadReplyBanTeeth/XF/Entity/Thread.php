@@ -102,6 +102,6 @@ class Thread extends XFCP_Thread
             return ($replyBan && (!$replyBan->expiry_date || $replyBan->expiry_date > \XF::$time));
         }
 
-        return true;
+        return false;
     }
 }
