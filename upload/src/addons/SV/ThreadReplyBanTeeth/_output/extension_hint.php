@@ -13,3 +13,8 @@ namespace SV\ThreadReplyBanTeeth\XF\Finder
 {
 	class XFCP_Thread extends \XF\Finder\Thread {}
 }
+
+namespace SV\ThreadReplyBanTeeth\XF\Pub\Controller
+{
+	class XFCP_Post extends \XF\Pub\Controller\Post {}
+}
