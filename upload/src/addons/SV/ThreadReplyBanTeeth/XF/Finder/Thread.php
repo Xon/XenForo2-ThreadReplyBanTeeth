@@ -46,11 +46,4 @@ class Thread extends XFCP_Thread
 
         return parent::withReadData($userId);
     }
-
-    protected function applyFilters(\XF\Finder\Thread $threadFinder, array $filters)
-    {
-        $this->includeReplyBan();
-
-        return parent::applyFilters($threadFinder, $filters);
-    }
 }
