@@ -2,8 +2,6 @@
 
 namespace SV\ThreadReplyBanTeeth\XF\Entity;
 
-use XF\Mvc\Entity\Structure;
-
 class Thread extends XFCP_Thread
 {
     /**
@@ -31,7 +29,8 @@ class Thread extends XFCP_Thread
     }
 
     /**
-     * @param null $error
+     * @param string $type
+     * @param null   $error
      * @return bool
      */
     public function canDelete($type = 'soft', &$error = null)

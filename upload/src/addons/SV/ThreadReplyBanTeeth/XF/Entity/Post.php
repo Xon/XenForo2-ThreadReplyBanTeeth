@@ -57,7 +57,8 @@ class Post extends XFCP_Post
     }
 
     /**
-     * @param null $error
+     * @param string $type
+     * @param null   $error
      * @return bool
      */
     public function canDelete($type = 'soft', &$error = null)

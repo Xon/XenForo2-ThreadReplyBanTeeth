@@ -2,8 +2,6 @@
 
 namespace SV\ThreadReplyBanTeeth\XF\Pub\Controller;
 
-use XF\Mvc\ParameterBag;
-
 class Post extends XFCP_Post
 {
     /**
