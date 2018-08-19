@@ -24,9 +24,9 @@ class Thread extends XFCP_Thread
         }
         $options = \XF::app()->options();
 
-        if ($options->SV_ThreadReplyBanTeeth_EditBan ||
-            $options->SV_ThreadReplyBanTeeth_LikeBan ||
-            $options->SV_ThreadReplyBanTeeth_DeleteBan)
+        if ($options->svEditReplyBan ||
+            $options->svLikeReplyBan ||
+            $options->svDeleteReplyBan)
         {
             $this->with('ReplyBans|' . $userId);
         }

@@ -3,6 +3,12 @@
 // ################## THIS IS A GENERATED FILE ##################
 // DO NOT EDIT DIRECTLY. EDIT THE CLASS EXTENSIONS IN THE CONTROL PANEL.
 
+namespace SV\ThreadReplyBanTeeth\SV\Threadmarks\ControllerPlugin
+{
+	class XFCP_Threadmark extends \SV\Threadmarks\ControllerPlugin\Threadmark {}
+	class XFCP_ThreadmarkContainer extends \SV\Threadmarks\ControllerPlugin\ThreadmarkContainer {}
+}
+
 namespace SV\ThreadReplyBanTeeth\XF\Entity
 {
 	class XFCP_Post extends \XF\Entity\Post {}

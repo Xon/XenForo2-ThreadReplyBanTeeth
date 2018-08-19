@@ -17,7 +17,7 @@ class Post extends XFCP_Post
             return false;
         }
 
-        if (\XF::app()->options()->SV_ThreadReplyBanTeeth_EditBan)
+        if (\XF::app()->options()->svEditReplyBan)
         {
             /** @var Thread $thread */
             $thread = $this->Thread;
@@ -43,7 +43,7 @@ class Post extends XFCP_Post
             return false;
         }
 
-        if (\XF::app()->options()->SV_ThreadReplyBanTeeth_LikeBan)
+        if (\XF::app()->options()->svLikeReplyBan)
         {
             /** @var Thread $thread */
             $thread = $this->Thread;
@@ -70,7 +70,7 @@ class Post extends XFCP_Post
             return false;
         }
 
-        if (\XF::app()->options()->SV_ThreadReplyBanTeeth_DeleteBan)
+        if (\XF::app()->options()->svDeleteReplyBan)
         {
             /** @var Thread $thread */
             $thread = $this->Thread;

@@ -15,9 +15,10 @@ class Post extends XFCP_Post
         if ($userId)
         {
             $options = \XF::app()->options();
-            if ($options->SV_ThreadReplyBanTeeth_EditBan ||
-                $options->SV_ThreadReplyBanTeeth_LikeBan ||
-                $options->SV_ThreadReplyBanTeeth_DeleteBan)
+            if ($options->svEditReplyBan ||
+                $options->svLikeReplyBan ||
+                $options->svThreadmarkReplyBan  ||
+                $options->svDeleteReplyBan)
             {
                 $extraWith[] = 'Thread.ReplyBans|' . $userId;
             }

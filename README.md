@@ -4,3 +4,4 @@ Give thread reply bans more bite, by providing global options to disable the fol
 - Edits
 - Deletes
 - Likes
+- Threadmarks

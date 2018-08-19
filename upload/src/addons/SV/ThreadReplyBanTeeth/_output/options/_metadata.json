@@ -1,11 +1,14 @@
 {
-    "SV_ThreadReplyBanTeeth_DeleteBan.json": {
+    "svDeleteReplyBan.json": {
         "hash": "235074f54d581a2c14764ac73a18c8fb"
     },
-    "SV_ThreadReplyBanTeeth_EditBan.json": {
+    "svEditReplyBan.json": {
         "hash": "943debab7429a124c2376d60bd8f3987"
     },
-    "SV_ThreadReplyBanTeeth_LikeBan.json": {
+    "svLikeReplyBan.json": {
         "hash": "6e5f14ddd42755840f1c051d254769d3"
+    },
+    "svThreadmarkReplyBan.json": {
+        "hash": "0f1a05e65065f62e01c03913775e73ab"
     }
 }

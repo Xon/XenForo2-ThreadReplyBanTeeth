@@ -8,6 +8,132 @@ class Thread extends XFCP_Thread
      * @param null $error
      * @return bool
      */
+    public function canAddThreadmark(&$error = null)
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        $hasPermission = parent::canAddThreadmark($error);
+
+        if (!$hasPermission)
+        {
+            return false;
+        }
+
+        if (\XF::app()->options()->svThreadmarkReplyBan)
+        {
+            if ($this->isReplyBanned())
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param null $error
+     * @return bool
+     */
+    public function canEditThreadmark(&$error = null)
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        $hasPermission = parent::canEditThreadmark($error);
+
+        if (!$hasPermission)
+        {
+            return false;
+        }
+
+        if (\XF::app()->options()->svThreadmarkReplyBan)
+        {
+            if ($this->isReplyBanned())
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param string $type
+     * @param null   $error
+     * @return bool
+     */
+    public function canDeleteThreadmark($type, &$error = null)
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        $hasPermission = parent::canDeleteThreadmark($type, $error);
+
+        if (!$hasPermission)
+        {
+            return false;
+        }
+
+        if (\XF::app()->options()->svThreadmarkReplyBan)
+        {
+            if ($this->isReplyBanned())
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param null $error
+     * @return bool
+     */
+    public function canAddThreadmarkIndex(&$error = null)
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        $hasPermission = parent::canAddThreadmarkIndex($error);
+
+        if (!$hasPermission)
+        {
+            return false;
+        }
+
+        if (\XF::app()->options()->svThreadmarkReplyBan)
+        {
+            if ($this->isReplyBanned())
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param null $error
+     * @return bool
+     */
+    public function canDeleteFromThreadmarkIndex(&$error = null)
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        $hasPermission = parent::canDeleteFromThreadmarkIndex($error);
+
+        if (!$hasPermission)
+        {
+            return false;
+        }
+
+        if (\XF::app()->options()->svThreadmarkReplyBan)
+        {
+            if ($this->isReplyBanned())
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param null $error
+     * @return bool
+     */
     public function canEdit(&$error = null)
     {
         $hasPermission = parent::canEdit($error);
@@ -17,7 +143,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if (\XF::app()->options()->SV_ThreadReplyBanTeeth_EditBan)
+        if (\XF::app()->options()->svEditReplyBan)
         {
             if ($this->isReplyBanned())
             {
@@ -42,7 +168,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if (\XF::app()->options()->SV_ThreadReplyBanTeeth_DeleteBan)
+        if (\XF::app()->options()->svDeleteReplyBan)
         {
             if ($this->isReplyBanned())
             {
@@ -69,7 +195,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if (\XF::app()->options()->SV_ThreadReplyBanTeeth_EditBan)
+        if (\XF::app()->options()->svEditReplyBan)
         {
             if ($this->isReplyBanned())
             {

@@ -1,0 +1,6 @@
+{
+    "from_class": "SV\\Threadmarks\\ControllerPlugin\\Threadmark",
+    "to_class": "SV\\ThreadReplyBanTeeth\\SV\\Threadmarks\\ControllerPlugin\\Threadmark",
+    "execute_order": 10,
+    "active": true
+}
