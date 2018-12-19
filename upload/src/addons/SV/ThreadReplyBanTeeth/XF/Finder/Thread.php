@@ -6,6 +6,11 @@ class Thread extends XFCP_Thread
 {
     protected $appliedReplyBan = false;
 
+    /**
+     * Mostly XF2.0 support
+     *
+     * @param null $userId
+     */
     protected function includeReplyBan($userId = null)
     {
         if ($this->appliedReplyBan)
@@ -32,10 +37,20 @@ class Thread extends XFCP_Thread
         }
     }
 
+    /**
+     * XF2.0 support
+     *
+     * @param bool $includeForum
+     * @return XFCP_Thread
+     */
     public function forFullView($includeForum = false)
     {
-        $this->includeReplyBan();
+        if (\XF::$versionId < 2010000)
+        {
+            $this->includeReplyBan();
+        }
 
+        /** @noinspection PhpDeprecationInspection */
         return parent::forFullView($includeForum);
     }
 
