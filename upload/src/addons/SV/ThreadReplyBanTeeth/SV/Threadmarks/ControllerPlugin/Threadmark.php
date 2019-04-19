@@ -4,9 +4,9 @@ namespace SV\ThreadReplyBanTeeth\SV\Threadmarks\ControllerPlugin;
 
 class Threadmark extends XFCP_Threadmark
 {
-    protected function getContentTypeWith($contentType)
+    protected function getContentTypeWith($contentType, array $with = [])
     {
-        $with = parent::getContentTypeWith($contentType);
+        $with = parent::getContentTypeWith($contentType, $with);
 
         switch ($contentType)
         {
