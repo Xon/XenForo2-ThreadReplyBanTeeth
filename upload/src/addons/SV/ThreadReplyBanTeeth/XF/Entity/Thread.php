@@ -242,26 +242,22 @@ class Thread extends XFCP_Thread
     {
         $structure = parent::getStructure($structure);
 
-        // XF2.1 support
-        if (isset($structure->withAliases))
-        {
-            $structure->withAliases['full'][] = function () {
-                $userId = \XF::visitor()->user_id;
-                if ($userId)
+        $structure->withAliases['full'][] = function () {
+            $userId = \XF::visitor()->user_id;
+            if ($userId)
+            {
+                $options = \XF::app()->options();
+
+                if ($options->svEditReplyBan ||
+                    $options->svLikeReplyBan ||
+                    $options->svDeleteReplyBan)
                 {
-                    $options = \XF::app()->options();
-
-                    if ($options->svEditReplyBan ||
-                        $options->svLikeReplyBan ||
-                        $options->svDeleteReplyBan)
-                    {
-                        return ['ReplyBans|' . $userId];
-                    }
+                    return ['ReplyBans|' . $userId];
                 }
+            }
 
-                return null;
-            };
-        }
+            return null;
+        };
 
         return $structure;
     }
