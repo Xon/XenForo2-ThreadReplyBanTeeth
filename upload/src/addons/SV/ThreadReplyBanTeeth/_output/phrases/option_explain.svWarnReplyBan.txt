@@ -1,0 +1,1 @@
+Prevent someone who has been thread reply banned from issuing warnings in that thread

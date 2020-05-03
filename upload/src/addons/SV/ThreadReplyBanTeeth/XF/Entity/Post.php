@@ -111,4 +111,30 @@ class Post extends XFCP_Post
 
         return true;
     }
+
+    /**
+     * @param null   $error
+     * @return bool
+     */
+    public function canWarn(&$error = null)
+    {
+        $hasPermission = parent::canWarn($error);
+
+        if (!$hasPermission)
+        {
+            return false;
+        }
+
+        if (\XF::app()->options()->svWarnReplyBan)
+        {
+            /** @var Thread $thread */
+            $thread = $this->Thread;
+            if ($thread->isReplyBanned())
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
