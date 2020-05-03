@@ -37,24 +37,6 @@ class Thread extends XFCP_Thread
         }
     }
 
-    /**
-     * XF2.0 support
-     *
-     * @param bool $includeForum
-     * @return XFCP_Thread
-     */
-    public function forFullView($includeForum = false)
-    {
-        if (\XF::$versionId < 2010000)
-        {
-            $this->includeReplyBan();
-        }
-
-        /** @noinspection PhpDeprecationInspection */
-        return parent::forFullView($includeForum);
-    }
-
-
     public function withReadData($userId = null)
     {
         $this->includeReplyBan($userId);

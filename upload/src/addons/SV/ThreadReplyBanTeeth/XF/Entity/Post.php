@@ -60,14 +60,11 @@ class Post extends XFCP_Post
     }
 
     /**
-     * XF2.1 support
-     *
      * @param null $error
      * @return bool
      */
     public function canReact(&$error = null)
     {
-        /** @noinspection PhpUndefinedMethodInspection */
         $hasPermission = parent::canReact($error);
 
         if (!$hasPermission)
