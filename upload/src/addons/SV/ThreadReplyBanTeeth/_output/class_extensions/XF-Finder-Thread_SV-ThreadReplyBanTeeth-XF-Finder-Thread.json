@@ -1,6 +1,6 @@
 {
     "from_class": "XF\\Finder\\Thread",
     "to_class": "SV\\ThreadReplyBanTeeth\\XF\\Finder\\Thread",
-    "execute_order": 5991,
+    "execute_order": 59910,
     "active": true
 }
