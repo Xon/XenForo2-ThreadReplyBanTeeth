@@ -1,0 +1,2 @@
+Prevent someone who has been thread reply banned from managing or issuing reply bans in that thread.<br/>
+Does not stop admincp "Thread reply bans" management.

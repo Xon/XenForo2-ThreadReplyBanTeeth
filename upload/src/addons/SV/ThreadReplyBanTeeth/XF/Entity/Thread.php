@@ -208,6 +208,26 @@ class Thread extends XFCP_Thread
         return true;
     }
 
+    public function canReplyBan(&$error = null)
+    {
+        $hasPermission = parent::canReplyBan($error);
+
+        if (!$hasPermission)
+        {
+            return false;
+        }
+
+        if (\XF::app()->options()->svReplyBanReplyBan)
+        {
+            if ($this->isReplyBanned())
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /**
      * @return bool
      */
