@@ -10,8 +10,14 @@
     "support_url": "https://xenforo.com/community/resources/thread-reply-ban-teeth.5991/",
     "extra_urls": [],
     "require": {
-        "XF": [2010000, "XenForo 2.1.0+"],
-        "php": ["5.6.0", "PHP 5.6.0+"]
+        "php": [
+            "5.6.0",
+            "PHP 5.6.0+"
+        ],
+        "XF": [
+            2010000,
+            "XenForo 2.1.0+"
+        ]
     },
     "icon": "fa-teeth"
 }
