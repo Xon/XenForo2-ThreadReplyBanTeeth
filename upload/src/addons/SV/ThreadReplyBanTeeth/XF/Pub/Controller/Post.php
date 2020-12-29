@@ -2,19 +2,27 @@
 
 namespace SV\ThreadReplyBanTeeth\XF\Pub\Controller;
 
+use XF\Mvc\Reply\Exception as ExceptionReply;
+
 class Post extends XFCP_Post
 {
     /**
-     * @param int   $postId
+     * @param int $postId
      * @param array $extraWith
+     *
      * @return \XF\Entity\Post
+     *
+     * @throws ExceptionReply
+     *
+     * @noinspection PhpMissingParamTypeInspection
+     * @noinspection PhpMissingReturnTypeInspection
      */
     protected function assertViewablePost($postId, array $extraWith = [])
     {
         $userId = \XF::visitor()->user_id;
         if ($userId)
         {
-            $options = \XF::app()->options();
+            $options = $this->options();
             if ($options->svEditReplyBan ||
                 $options->svLikeReplyBan ||
                 $options->svThreadmarkReplyBan  ||

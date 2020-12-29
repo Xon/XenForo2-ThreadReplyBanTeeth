@@ -3,12 +3,16 @@
 namespace SV\ThreadReplyBanTeeth\XF\Entity;
 
 use XF\Mvc\Entity\Structure;
+use XF\Phrase;
 
 class Thread extends XFCP_Thread
 {
     /**
-     * @param null $error
+     * @param Phrase|null $error
+     *
      * @return bool
+     *
+     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canAddThreadmark(&$error = null)
     {
@@ -20,7 +24,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if (\XF::app()->options()->svThreadmarkReplyBan)
+        if ($this->app()->options()->svThreadmarkReplyBan)
         {
             if ($this->isReplyBanned())
             {
@@ -32,8 +36,11 @@ class Thread extends XFCP_Thread
     }
 
     /**
-     * @param null $error
+     * @param Phrase|null $error
+     *
      * @return bool
+     *
+     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canEditThreadmark(&$error = null)
     {
@@ -45,7 +52,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if (\XF::app()->options()->svThreadmarkReplyBan)
+        if ($this->app()->options()->svThreadmarkReplyBan)
         {
             if ($this->isReplyBanned())
             {
@@ -57,9 +64,13 @@ class Thread extends XFCP_Thread
     }
 
     /**
-     * @param string $type
-     * @param null   $error
+     * @param string      $type
+     * @param Phrase|null $error
+     *
      * @return bool
+     *
+     * @noinspection PhpMissingParamTypeInspection
+     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canDeleteThreadmark($type, &$error = null)
     {
@@ -71,7 +82,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if (\XF::app()->options()->svThreadmarkReplyBan)
+        if ($this->app()->options()->svThreadmarkReplyBan)
         {
             if ($this->isReplyBanned())
             {
@@ -83,8 +94,11 @@ class Thread extends XFCP_Thread
     }
 
     /**
-     * @param null $error
+     * @param Phrase|null $error
+     *
      * @return bool
+     *
+     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canAddThreadmarkIndex(&$error = null)
     {
@@ -96,7 +110,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if (\XF::app()->options()->svThreadmarkReplyBan)
+        if ($this->app()->options()->svThreadmarkReplyBan)
         {
             if ($this->isReplyBanned())
             {
@@ -108,8 +122,11 @@ class Thread extends XFCP_Thread
     }
 
     /**
-     * @param null $error
+     * @param Phrase|null $error
+     *
      * @return bool
+     *
+     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canDeleteFromThreadmarkIndex(&$error = null)
     {
@@ -121,7 +138,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if (\XF::app()->options()->svThreadmarkReplyBan)
+        if ($this->app()->options()->svThreadmarkReplyBan)
         {
             if ($this->isReplyBanned())
             {
@@ -133,8 +150,11 @@ class Thread extends XFCP_Thread
     }
 
     /**
-     * @param null $error
+     * @param Phrase|null $error
+     *
      * @return bool
+     *
+     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canEdit(&$error = null)
     {
@@ -145,7 +165,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if (\XF::app()->options()->svEditReplyBan)
+        if ($this->app()->options()->svEditReplyBan)
         {
             if ($this->isReplyBanned())
             {
@@ -157,9 +177,12 @@ class Thread extends XFCP_Thread
     }
 
     /**
-     * @param string $type
-     * @param null   $error
+     * @param string      $type
+     * @param Phrase|null $error
+     *
      * @return bool
+     *
+     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canDelete($type = 'soft', &$error = null)
     {
@@ -170,7 +193,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if (\XF::app()->options()->svDeleteReplyBan)
+        if ($this->app()->options()->svDeleteReplyBan)
         {
             if ($this->isReplyBanned())
             {
@@ -184,8 +207,11 @@ class Thread extends XFCP_Thread
     /**
      * Title Edit History support
      *
-     * @param null $error
+     * @param Phrase|null $error
+     *
      * @return bool
+     *
+     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canEditThreadTitle(&$error = null)
     {
@@ -197,27 +223,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if (\XF::app()->options()->svEditReplyBan)
-        {
-            if ($this->isReplyBanned())
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    public function canReplyBan(&$error = null)
-    {
-        $hasPermission = parent::canReplyBan($error);
-
-        if (!$hasPermission)
-        {
-            return false;
-        }
-
-        if (\XF::app()->options()->svReplyBanReplyBan)
+        if ($this->app()->options()->svEditReplyBan)
         {
             if ($this->isReplyBanned())
             {
@@ -229,9 +235,33 @@ class Thread extends XFCP_Thread
     }
 
     /**
+     * @param Phrase|null $error
+     *
      * @return bool
+     *
+     * @noinspection PhpMissingReturnTypeInspection
      */
-    public function isReplyBanned()
+    public function canReplyBan(&$error = null)
+    {
+        $hasPermission = parent::canReplyBan($error);
+
+        if (!$hasPermission)
+        {
+            return false;
+        }
+
+        if ($this->app()->options()->svReplyBanReplyBan)
+        {
+            if ($this->isReplyBanned())
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function isReplyBanned() : bool
     {
         $visitor = \XF::visitor();
         if (!$visitor->user_id)
@@ -239,7 +269,6 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        /** @var \XF\Mvc\Entity\AbstractCollection $replyBans */
         $replyBans = $this->ReplyBans;
 
         if (isset($replyBans[$visitor->user_id]))
@@ -257,6 +286,8 @@ class Thread extends XFCP_Thread
      * @param Structure $structure
      *
      * @return Structure
+     *
+     * @noinspection PhpMissingReturnTypeInspection
      */
     public static function getStructure(Structure $structure)
     {
@@ -266,7 +297,7 @@ class Thread extends XFCP_Thread
             $userId = \XF::visitor()->user_id;
             if ($userId)
             {
-                $options = \XF::app()->options();
+                $options = $this->app()->options();
 
                 if ($options->svEditReplyBan ||
                     $options->svLikeReplyBan ||

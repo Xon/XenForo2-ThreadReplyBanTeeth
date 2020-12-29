@@ -27,8 +27,8 @@ class Thread extends XFCP_Thread
         {
             return;
         }
-        $options = \XF::app()->options();
 
+        $options = $this->app()->options();
         if ($options->svEditReplyBan ||
             $options->svLikeReplyBan ||
             $options->svDeleteReplyBan)
@@ -37,6 +37,13 @@ class Thread extends XFCP_Thread
         }
     }
 
+    /**
+     * @param null $userId
+     *
+     * @return Thread
+     *
+     * @noinspection PhpMissingReturnTypeInspection
+     */
     public function withReadData($userId = null)
     {
         $this->includeReplyBan($userId);

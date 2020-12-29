@@ -2,11 +2,16 @@
 
 namespace SV\ThreadReplyBanTeeth\XF\Entity;
 
+use XF\Phrase;
+
 class Post extends XFCP_Post
 {
     /**
      * @param null $error
+     *
      * @return bool
+     *
+     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canEdit(&$error = null)
     {
@@ -17,7 +22,7 @@ class Post extends XFCP_Post
             return false;
         }
 
-        if (\XF::app()->options()->svEditReplyBan)
+        if ($this->app()->options()->svEditReplyBan)
         {
             /** @var Thread $thread */
             $thread = $this->Thread;
@@ -32,7 +37,10 @@ class Post extends XFCP_Post
 
     /**
      * @param null $error
+     *
      * @return bool
+     *
+     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canReact(&$error = null)
     {
@@ -43,7 +51,7 @@ class Post extends XFCP_Post
             return false;
         }
 
-        if (\XF::app()->options()->svLikeReplyBan)
+        if ($this->app()->options()->svLikeReplyBan)
         {
             /** @var Thread $thread */
             $thread = $this->Thread;
@@ -58,8 +66,11 @@ class Post extends XFCP_Post
 
     /**
      * @param string $type
-     * @param null   $error
+     * @param Phrase|null   $error
+     *
      * @return bool
+     *
+     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canDelete($type = 'soft', &$error = null)
     {
@@ -70,7 +81,7 @@ class Post extends XFCP_Post
             return false;
         }
 
-        if (\XF::app()->options()->svDeleteReplyBan)
+        if ($this->app()->options()->svDeleteReplyBan)
         {
             /** @var Thread $thread */
             $thread = $this->Thread;
@@ -84,8 +95,11 @@ class Post extends XFCP_Post
     }
 
     /**
-     * @param null   $error
+     * @param Phrase|null $error
+     *
      * @return bool
+     *
+     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canWarn(&$error = null)
     {
@@ -96,7 +110,7 @@ class Post extends XFCP_Post
             return false;
         }
 
-        if (\XF::app()->options()->svWarnReplyBan)
+        if ($this->app()->options()->svWarnReplyBan)
         {
             /** @var Thread $thread */
             $thread = $this->Thread;
