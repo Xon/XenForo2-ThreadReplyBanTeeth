@@ -17,6 +17,10 @@
         "XF": [
             2010000,
             "XenForo 2.1.0+"
+        ],
+        "SV/StandardLib": [
+            1010000,
+            "Standard Library by Xon v1.1.0+"
         ]
     },
     "icon": "fa-teeth"
