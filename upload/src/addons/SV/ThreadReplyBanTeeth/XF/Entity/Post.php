@@ -22,7 +22,7 @@ class Post extends XFCP_Post
             return false;
         }
 
-        if ($this->app()->options()->svEditReplyBan)
+        if ($this->app()->options()->svEditReplyBan ?? true)
         {
             /** @var Thread $thread */
             $thread = $this->Thread;

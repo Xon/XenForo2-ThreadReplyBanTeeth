@@ -297,11 +297,11 @@ class Thread extends XFCP_Thread
             $userId = \XF::visitor()->user_id;
             if ($userId)
             {
-                $options = $this->app()->options();
+                $options = \XF::app()->options();
 
-                if ($options->svEditReplyBan ||
-                    $options->svLikeReplyBan ||
-                    $options->svDeleteReplyBan)
+                if (($options->svEditReplyBan ?? true) ||
+                    ($options->svLikeReplyBan ?? true) ||
+                    ($options->svDeleteReplyBan ?? true))
                 {
                     return ['ReplyBans|' . $userId];
                 }

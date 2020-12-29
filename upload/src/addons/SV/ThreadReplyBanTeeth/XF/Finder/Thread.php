@@ -29,9 +29,9 @@ class Thread extends XFCP_Thread
         }
 
         $options = $this->app()->options();
-        if ($options->svEditReplyBan ||
-            $options->svLikeReplyBan ||
-            $options->svDeleteReplyBan)
+        if (($options->svEditReplyBan ?? true) ||
+            ($options->svLikeReplyBan ?? true) ||
+            ($options->svDeleteReplyBan ?? true))
         {
             $this->with('ReplyBans|' . $userId);
         }

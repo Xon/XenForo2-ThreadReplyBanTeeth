@@ -23,10 +23,10 @@ class Post extends XFCP_Post
         if ($userId)
         {
             $options = $this->options();
-            if ($options->svEditReplyBan ||
-                $options->svLikeReplyBan ||
-                $options->svThreadmarkReplyBan  ||
-                $options->svDeleteReplyBan)
+            if (($options->svEditReplyBan ?? true) ||
+                ($options->svLikeReplyBan ?? true) ||
+                ($options->svThreadmarkReplyBan ?? true) ||
+                ($options->svDeleteReplyBan ?? true))
             {
                 $extraWith[] = 'Thread.ReplyBans|' . $userId;
             }
