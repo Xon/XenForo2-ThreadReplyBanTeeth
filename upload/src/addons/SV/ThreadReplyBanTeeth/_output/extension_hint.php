@@ -9,6 +9,12 @@ namespace SV\ThreadReplyBanTeeth\SV\Threadmarks\ControllerPlugin
 	class XFCP_ThreadmarkContainer extends \SV\Threadmarks\ControllerPlugin\ThreadmarkContainer {}
 }
 
+namespace SV\ThreadReplyBanTeeth\SV\Threadmarks\Entity
+{
+	class XFCP_Threadmark extends \SV\Threadmarks\Entity\Threadmark {}
+	class XFCP_ThreadmarkIndex extends \SV\Threadmarks\Entity\ThreadmarkIndex {}
+}
+
 namespace SV\ThreadReplyBanTeeth\XF\Entity
 {
 	class XFCP_Post extends \XF\Entity\Post {}

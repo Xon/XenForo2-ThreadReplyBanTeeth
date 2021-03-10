@@ -1,0 +1,6 @@
+{
+    "from_class": "SV\\Threadmarks\\Entity\\ThreadmarkIndex",
+    "to_class": "SV\\ThreadReplyBanTeeth\\SV\\Threadmarks\\Entity\\ThreadmarkIndex",
+    "execute_order": 5991,
+    "active": true
+}

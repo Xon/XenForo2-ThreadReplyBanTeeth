@@ -128,10 +128,10 @@ class Thread extends XFCP_Thread
      *
      * @noinspection PhpMissingReturnTypeInspection
      */
-    public function canDeleteFromThreadmarkIndex(&$error = null)
+    public function canLinkContentToIndex(&$error = null)
     {
         /** @noinspection PhpUndefinedMethodInspection */
-        $hasPermission = parent::canDeleteFromThreadmarkIndex($error);
+        $hasPermission = parent::canLinkContentToIndex($error);
 
         if (!$hasPermission)
         {
