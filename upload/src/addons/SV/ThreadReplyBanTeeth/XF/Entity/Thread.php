@@ -24,7 +24,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if ($this->app()->options()->svThreadmarkReplyBan)
+        if ($this->app()->options()->svThreadmarkReplyBan ?? true)
         {
             if ($this->isReplyBanned())
             {
@@ -52,7 +52,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if ($this->app()->options()->svThreadmarkReplyBan)
+        if ($this->app()->options()->svThreadmarkReplyBan ?? true)
         {
             if ($this->isReplyBanned())
             {
@@ -82,7 +82,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if ($this->app()->options()->svThreadmarkReplyBan)
+        if ($this->app()->options()->svThreadmarkReplyBan ?? true)
         {
             if ($this->isReplyBanned())
             {
@@ -110,7 +110,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if ($this->app()->options()->svThreadmarkReplyBan)
+        if ($this->app()->options()->svThreadmarkReplyBan ?? true)
         {
             if ($this->isReplyBanned())
             {
@@ -138,7 +138,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if ($this->app()->options()->svThreadmarkReplyBan)
+        if ($this->app()->options()->svThreadmarkReplyBan ?? true)
         {
             if ($this->isReplyBanned())
             {
@@ -165,7 +165,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if ($this->app()->options()->svEditReplyBan)
+        if ($this->app()->options()->svEditReplyBan ?? true)
         {
             if ($this->isReplyBanned())
             {
@@ -193,7 +193,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if ($this->app()->options()->svDeleteReplyBan)
+        if ($this->app()->options()->svDeleteReplyBan ?? true)
         {
             if ($this->isReplyBanned())
             {
@@ -223,7 +223,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if ($this->app()->options()->svEditReplyBan)
+        if ($this->app()->options()->svEditReplyBan ?? true)
         {
             if ($this->isReplyBanned())
             {
@@ -250,7 +250,7 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        if ($this->app()->options()->svReplyBanReplyBan)
+        if ($this->app()->options()->svReplyBanReplyBan ?? true)
         {
             if ($this->isReplyBanned())
             {

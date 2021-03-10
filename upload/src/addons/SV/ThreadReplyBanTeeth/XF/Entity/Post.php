@@ -51,7 +51,7 @@ class Post extends XFCP_Post
             return false;
         }
 
-        if ($this->app()->options()->svLikeReplyBan)
+        if ($this->app()->options()->svLikeReplyBan ?? true)
         {
             /** @var Thread $thread */
             $thread = $this->Thread;
@@ -81,7 +81,7 @@ class Post extends XFCP_Post
             return false;
         }
 
-        if ($this->app()->options()->svDeleteReplyBan)
+        if ($this->app()->options()->svDeleteReplyBan ?? true)
         {
             /** @var Thread $thread */
             $thread = $this->Thread;
@@ -110,7 +110,7 @@ class Post extends XFCP_Post
             return false;
         }
 
-        if ($this->app()->options()->svWarnReplyBan)
+        if ($this->app()->options()->svWarnReplyBan ?? true)
         {
             /** @var Thread $thread */
             $thread = $this->Thread;
