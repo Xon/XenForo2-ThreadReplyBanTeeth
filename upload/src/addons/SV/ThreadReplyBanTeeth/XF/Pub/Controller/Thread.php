@@ -15,7 +15,7 @@ class Thread extends XFCP_Thread
     {
         $reply = parent::actionIndex($params);
 
-        if ($reply instanceof ViewReply && (\XF::options()->svReplyBanBanner ?? true))
+        if ($reply instanceof ViewReply && (\XF::options()->svReplyBanBanner ?? false))
         {
             // cache thread reply ban status into posts to apply a styling banner
             /** @var \XF\Entity\Thread $thread */

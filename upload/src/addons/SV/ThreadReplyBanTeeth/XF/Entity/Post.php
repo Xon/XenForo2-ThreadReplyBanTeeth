@@ -139,7 +139,7 @@ class Post extends XFCP_Post
     {
         $structure = parent::getStructure($structure);
 
-        $structure->options['svHasReplyBanned'] = \XF::options()->svReplyBanBanner ?? true;
+        $structure->options['svHasReplyBanned'] = \XF::options()->svReplyBanBanner ?? false;
 
         return $structure;
     }
