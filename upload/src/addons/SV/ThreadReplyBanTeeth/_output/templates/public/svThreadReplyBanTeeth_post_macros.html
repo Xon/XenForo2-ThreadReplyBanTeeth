@@ -1,0 +1,5 @@
+<xf:if is="$post.hasOption('svHasReplyBanned') && $post.getOption('svHasReplyBanned') && $post.isReplyBanned()">
+	<div class="messageNotice messageNotice--reply-banned">
+		{{ phrase('svThreadReplyBanTeeeth_is_reply_banned') }}
+	</div>
+</xf:if>

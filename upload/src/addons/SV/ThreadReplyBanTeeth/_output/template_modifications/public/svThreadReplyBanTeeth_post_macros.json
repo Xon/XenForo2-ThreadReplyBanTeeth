@@ -1,0 +1,9 @@
+{
+    "template": "post_macros",
+    "description": "Inject 'user is reply banned' banner",
+    "execution_order": 5991,
+    "enabled": true,
+    "action": "preg_replace",
+    "find": "#[\\t ]*<xf:if is=\"\\$post\\.warning_message#i",
+    "replace": "<xf:include template=\"svThreadReplyBanTeeth_post_macros\" />\n$0"
+}

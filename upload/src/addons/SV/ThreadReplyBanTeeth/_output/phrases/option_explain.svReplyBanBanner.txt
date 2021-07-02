@@ -1,0 +1,1 @@
+When a user is thread reply banned from a thread; put a banner on their post that this has happened.
