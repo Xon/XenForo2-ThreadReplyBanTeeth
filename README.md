@@ -8,3 +8,4 @@ Give thread reply bans more bite, by providing global options to disable the fol
 - Threadmarks
 
 A non-default-enabled option to display a banner on a reply-banned user's post
+This feature adds an additional (cheap) query per thread view.
