@@ -245,24 +245,53 @@ class Thread extends XFCP_Thread
 
     public function isReplyBanned(): bool
     {
-        $visitor = \XF::visitor();
-        if (!$visitor->user_id)
+        return $this->isUserReplyBanned(\XF::visitor()->user_id);
+    }
+
+    public function isUserReplyBanned(int $userId): bool
+    {
+        if (!$userId)
         {
             return false;
         }
 
-        $replyBans = $this->ReplyBans;
+        /** @var bool[] $replyBannedUsers */
+        $replyBannedUsers = $this->_getterCache['svReplyBannedUserIds'] ?? [];
+        $userIsReplyBanned = $replyBannedUsers[$userId] ?? null;
 
-        if (isset($replyBans[$visitor->user_id]))
+        if ($userIsReplyBanned === null)
         {
-            $replyBan = $replyBans[$visitor->user_id];
+            $replyBans = $this->ReplyBans;
 
-            return ($replyBan && (!$replyBan->expiry_date || $replyBan->expiry_date > \XF::$time));
+            if (isset($replyBans[$userId]))
+            {
+                $replyBan = $replyBans[$userId];
+
+                $userIsReplyBanned = ($replyBan && (!$replyBan->expiry_date || $replyBan->expiry_date > \XF::$time));
+            }
+            $userIsReplyBanned = $userIsReplyBanned ?? false;
+
+            $replyBannedUsers[$userId] = $userIsReplyBanned;
+            $this->_getterCache['svReplyBannedUserIds'] = $replyBannedUsers;
         }
 
-        return false;
+        return $userIsReplyBanned;
     }
 
+    /**
+     * @param int[]|null $userIds
+     */
+    public function setUsersAreReplyBanned(array $userIds = null)
+    {
+        if ($userIds === null)
+        {
+            unset($this->_getterCache['svReplyBannedUserIds']);
+        }
+        else
+        {
+            $this->_getterCache['svReplyBannedUserIds'] = $userIds;
+        }
+    }
 
     /**
      * @param Structure $structure
@@ -289,6 +318,8 @@ class Thread extends XFCP_Thread
 
             return null;
         };
+
+        $structure->options['svHasReplyBanned'] = \XF::options()->svReplyBanBanner ?? false;
 
         return $structure;
     }

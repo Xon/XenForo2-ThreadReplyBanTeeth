@@ -23,7 +23,9 @@ class Post extends XFCP_Post
 
         if ($this->app()->options()->svEditReplyBan ?? true)
         {
-            if ($this->isReplyBanned())
+            /** @var Thread $thread */
+            $thread = $this->Thread;
+            if ($thread->isReplyBanned())
             {
                 return false;
             }
@@ -48,7 +50,9 @@ class Post extends XFCP_Post
 
         if ($this->app()->options()->svLikeReplyBan ?? true)
         {
-            if ($this->isReplyBanned())
+            /** @var Thread $thread */
+            $thread = $this->Thread;
+            if ($thread->isReplyBanned())
             {
                 return false;
             }
@@ -74,7 +78,9 @@ class Post extends XFCP_Post
 
         if ($this->app()->options()->svDeleteReplyBan ?? true)
         {
-            if ($this->isReplyBanned())
+            /** @var Thread $thread */
+            $thread = $this->Thread;
+            if ($thread->isReplyBanned())
             {
                 return false;
             }
@@ -99,48 +105,14 @@ class Post extends XFCP_Post
 
         if ($this->app()->options()->svWarnReplyBan ?? true)
         {
-            if ($this->isReplyBanned())
+            /** @var Thread $thread */
+            $thread = $this->Thread;
+            if ($thread->isReplyBanned())
             {
                 return false;
             }
         }
 
         return true;
-    }
-
-    public function isReplyBanned(): bool
-    {
-        $isReplyBanned = $this->_getterCache['isReplyBanned'] ?? null;
-
-        if ($isReplyBanned === null)
-        {
-            /** @var Thread $thread */
-            $thread = $this->Thread;
-            $this->_getterCache['isReplyBanned'] = $isReplyBanned = $thread->isReplyBanned();
-        }
-
-        return $isReplyBanned;
-    }
-
-    public function setIsReplyBanned(bool $isReplyBanned = null)
-    {
-        if ($isReplyBanned === null)
-        {
-            unset($this->_getterCache['isReplyBanned']);
-        }
-        else
-        {
-            $this->_getterCache['isReplyBanned'] = $isReplyBanned;
-        }
-    }
-
-    /** @noinspection PhpMissingReturnTypeInspection */
-    public static function getStructure(Structure $structure)
-    {
-        $structure = parent::getStructure($structure);
-
-        $structure->options['svHasReplyBanned'] = \XF::options()->svReplyBanBanner ?? false;
-
-        return $structure;
     }
 }
