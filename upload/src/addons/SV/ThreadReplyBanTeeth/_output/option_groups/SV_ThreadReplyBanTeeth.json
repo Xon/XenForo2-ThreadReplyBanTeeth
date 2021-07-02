@@ -1,5 +1,6 @@
 {
     "icon": "fa-teeth",
     "display_order": 521,
+    "advanced": false,
     "debug_only": false
 }
