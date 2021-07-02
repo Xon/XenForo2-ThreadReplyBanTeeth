@@ -15,12 +15,16 @@ class Thread extends XFCP_Thread
     {
         $reply = parent::actionIndex($params);
 
-        if ($reply instanceof ViewReply && (\XF::options()->svReplyBanBanner ?? false) && \XF::visitor()->user_id)
+        if ($reply instanceof ViewReply && (\XF::options()->svReplyBanBanner ?? false))
         {
             // cache thread reply ban status into posts to apply a styling banner
             /** @var \SV\ThreadReplyBanTeeth\XF\Entity\Thread $thread */
             $thread = $reply->getParam('thread');
-            if ($thread && (!$thread->hasOption('threadmark_category_id') || !$thread->getOption('threadmark_category_id')))
+            if (!$thread)
+            {
+                return $reply;
+            }
+            if (\XF::visitor()->user_id && !$thread->hasOption('threadmark_category_id') || !$thread->getOption('threadmark_category_id'))
             {
                 /** @var AbstractCollection|array $posts */
                 $posts = $reply->getParam('posts') ?? [];
@@ -57,6 +61,10 @@ class Thread extends XFCP_Thread
                     // update the post cache to avoid additional queries
                     $thread->setUsersAreReplyBanned($replyBannedUserIds);
                 }
+            }
+            else
+            {
+                $thread->setOption('svHasReplyBanned', false);
             }
         }
 
