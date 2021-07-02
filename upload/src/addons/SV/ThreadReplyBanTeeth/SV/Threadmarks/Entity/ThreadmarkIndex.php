@@ -6,8 +6,6 @@
 namespace SV\ThreadReplyBanTeeth\SV\Threadmarks\Entity;
 
 use SV\Threadmarks\Entity\ThreadmarkIndexInterface;
-use XF\Mvc\Entity\Entity;
-use XF\Mvc\Entity\Structure;
 use XF\Phrase;
 
 /**
@@ -17,7 +15,7 @@ class ThreadmarkIndex extends XFCP_ThreadmarkIndex
 {
     /**
      * @param string $type
-     * @param null   $error
+     * @param Phrase|string|null $error
      * @return bool
      */
     public function canDelete($type = 'soft', &$error = null)
@@ -41,7 +39,7 @@ class ThreadmarkIndex extends XFCP_ThreadmarkIndex
     }
 
     /**
-     * @param null $error
+     * @param Phrase|string|null $error
      * @return bool
      */
     public function canEdit(&$error = null)
@@ -65,7 +63,7 @@ class ThreadmarkIndex extends XFCP_ThreadmarkIndex
     }
 
     /**
-     * @param null $error
+     * @param Phrase|string|null $error
      * @return bool
      */
     public function canSortContent(&$error = null)
@@ -89,7 +87,7 @@ class ThreadmarkIndex extends XFCP_ThreadmarkIndex
     }
 
     /**
-     * @param null $error
+     * @param Phrase|string|null $error
      * @return bool
      */
     public function canAddContent(&$error = null)
@@ -114,7 +112,7 @@ class ThreadmarkIndex extends XFCP_ThreadmarkIndex
 
     /**
      * @param ThreadmarkIndexInterface $content
-     * @param null                     $error
+     * @param Phrase|string|null       $error
      * @return bool
      */
     public function canDeleteContent(ThreadmarkIndexInterface $content, &$error = null)

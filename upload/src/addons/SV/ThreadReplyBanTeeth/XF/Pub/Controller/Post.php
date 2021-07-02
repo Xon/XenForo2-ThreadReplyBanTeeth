@@ -7,14 +7,10 @@ use XF\Mvc\Reply\Exception as ExceptionReply;
 class Post extends XFCP_Post
 {
     /**
-     * @param int $postId
+     * @param int   $postId
      * @param array $extraWith
-     *
      * @return \XF\Entity\Post
-     *
      * @throws ExceptionReply
-     *
-     * @noinspection PhpMissingParamTypeInspection
      * @noinspection PhpMissingReturnTypeInspection
      */
     protected function assertViewablePost($postId, array $extraWith = [])

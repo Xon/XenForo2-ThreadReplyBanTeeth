@@ -7,10 +7,8 @@ use XF\Phrase;
 class Post extends XFCP_Post
 {
     /**
-     * @param null $error
-     *
+     * @param Phrase|string|null $error
      * @return bool
-     *
      * @noinspection PhpMissingReturnTypeInspection
      */
     public function canEdit(&$error = null)
@@ -36,10 +34,8 @@ class Post extends XFCP_Post
     }
 
     /**
-     * @param null $error
-     *
+     * @param Phrase|string|null $error
      * @return bool
-     *
      * @noinspection PhpMissingReturnTypeInspection
      */
     public function canReact(&$error = null)
@@ -65,11 +61,9 @@ class Post extends XFCP_Post
     }
 
     /**
-     * @param string $type
-     * @param Phrase|null   $error
-     *
+     * @param string             $type
+     * @param Phrase|string|null $error
      * @return bool
-     *
      * @noinspection PhpMissingReturnTypeInspection
      */
     public function canDelete($type = 'soft', &$error = null)
@@ -95,10 +89,8 @@ class Post extends XFCP_Post
     }
 
     /**
-     * @param Phrase|null $error
-     *
+     * @param Phrase|string|null $error
      * @return bool
-     *
      * @noinspection PhpMissingReturnTypeInspection
      */
     public function canWarn(&$error = null)

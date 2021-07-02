@@ -8,10 +8,8 @@ class Thread extends XFCP_Thread
 
     /**
      * Mostly XF2.0 support
-     *
-     * @param null $userId
      */
-    protected function includeReplyBan($userId = null)
+    protected function includeReplyBan(int $userId = null)
     {
         if ($this->appliedReplyBan)
         {
@@ -38,10 +36,8 @@ class Thread extends XFCP_Thread
     }
 
     /**
-     * @param null $userId
-     *
+     * @param int|null $userId
      * @return Thread
-     *
      * @noinspection PhpMissingReturnTypeInspection
      */
     public function withReadData($userId = null)

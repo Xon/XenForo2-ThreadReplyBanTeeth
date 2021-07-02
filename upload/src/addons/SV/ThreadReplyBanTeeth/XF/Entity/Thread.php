@@ -8,10 +8,8 @@ use XF\Phrase;
 class Thread extends XFCP_Thread
 {
     /**
-     * @param Phrase|null $error
-     *
+     * @param Phrase|string|null $error
      * @return bool
-     *
      * @noinspection PhpMissingReturnTypeInspection
      */
     public function canAddThreadmark(&$error = null)
@@ -36,10 +34,8 @@ class Thread extends XFCP_Thread
     }
 
     /**
-     * @param Phrase|null $error
-     *
+     * @param Phrase|string|null $error
      * @return bool
-     *
      * @noinspection PhpMissingReturnTypeInspection
      */
     public function canEditThreadmark(&$error = null)
@@ -64,11 +60,9 @@ class Thread extends XFCP_Thread
     }
 
     /**
-     * @param string      $type
-     * @param Phrase|null $error
-     *
+     * @param string             $type
+     * @param Phrase|string|null $error
      * @return bool
-     *
      * @noinspection PhpMissingParamTypeInspection
      * @noinspection PhpMissingReturnTypeInspection
      */
@@ -94,10 +88,8 @@ class Thread extends XFCP_Thread
     }
 
     /**
-     * @param Phrase|null $error
-     *
+     * @param Phrase|string|null $error
      * @return bool
-     *
      * @noinspection PhpMissingReturnTypeInspection
      */
     public function canAddThreadmarkIndex(&$error = null)
@@ -122,10 +114,8 @@ class Thread extends XFCP_Thread
     }
 
     /**
-     * @param Phrase|null $error
-     *
+     * @param Phrase|string|null $error
      * @return bool
-     *
      * @noinspection PhpMissingReturnTypeInspection
      */
     public function canLinkContentToIndex(&$error = null)
@@ -150,10 +140,8 @@ class Thread extends XFCP_Thread
     }
 
     /**
-     * @param Phrase|null $error
-     *
+     * @param Phrase|string|null $error
      * @return bool
-     *
      * @noinspection PhpMissingReturnTypeInspection
      */
     public function canEdit(&$error = null)
@@ -177,11 +165,9 @@ class Thread extends XFCP_Thread
     }
 
     /**
-     * @param string      $type
-     * @param Phrase|null $error
-     *
+     * @param string             $type
+     * @param Phrase|string|null $error
      * @return bool
-     *
      * @noinspection PhpMissingReturnTypeInspection
      */
     public function canDelete($type = 'soft', &$error = null)
@@ -207,10 +193,8 @@ class Thread extends XFCP_Thread
     /**
      * Title Edit History support
      *
-     * @param Phrase|null $error
-     *
+     * @param Phrase|string|null $error
      * @return bool
-     *
      * @noinspection PhpMissingReturnTypeInspection
      */
     public function canEditThreadTitle(&$error = null)
@@ -235,10 +219,8 @@ class Thread extends XFCP_Thread
     }
 
     /**
-     * @param Phrase|null $error
-     *
+     * @param Phrase|string|null $error
      * @return bool
-     *
      * @noinspection PhpMissingReturnTypeInspection
      */
     public function canReplyBan(&$error = null)
@@ -261,7 +243,7 @@ class Thread extends XFCP_Thread
         return true;
     }
 
-    public function isReplyBanned() : bool
+    public function isReplyBanned(): bool
     {
         $visitor = \XF::visitor();
         if (!$visitor->user_id)
@@ -284,9 +266,7 @@ class Thread extends XFCP_Thread
 
     /**
      * @param Structure $structure
-     *
      * @return Structure
-     *
      * @noinspection PhpMissingReturnTypeInspection
      */
     public static function getStructure(Structure $structure)
