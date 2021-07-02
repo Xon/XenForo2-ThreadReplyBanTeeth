@@ -1,2 +1,3 @@
 When a user is thread reply banned from a thread; put a banner on their post that this has happened.<br/>
-This feature adds an additional (cheap) query per thread view
+This feature adds an additional (cheap) query per thread view<br/>
+Only displays for logged in users
