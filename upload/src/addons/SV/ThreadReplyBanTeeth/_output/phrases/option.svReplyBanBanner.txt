@@ -1,1 +1,1 @@
-Display thread reply banned banner
+Display thread reply banned banner on user's posts
