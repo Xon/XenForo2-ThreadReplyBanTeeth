@@ -24,7 +24,7 @@ class Thread extends XFCP_Thread
             {
                 return $reply;
             }
-            if (\XF::visitor()->user_id && !$thread->hasOption('threadmark_category_id') || !$thread->getOption('threadmark_category_id'))
+            if (\XF::visitor()->user_id && (!$thread->hasOption('threadmark_category_id') || !$thread->getOption('threadmark_category_id')))
             {
                 /** @var AbstractCollection|array $posts */
                 $posts = $reply->getParam('posts') ?? [];
