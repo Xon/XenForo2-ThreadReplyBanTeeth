@@ -43,7 +43,7 @@ class Thread extends XFCP_Thread
                     $isReplyBannedRaw = \XF::finder('XF:ThreadReplyBan')
                                            ->where('thread_id', $thread->thread_id)
                                            ->where('user_id', \array_keys($postsByUserIds))
-                                           ->where('expiry_date', '<', \XF::$time)
+                                           ->where('expiry_date', '>=', \XF::$time)
                                            ->fetchRaw(['fetchOnly' => ['user_id']]);
                     foreach ($isReplyBannedRaw as $row)
                     {
