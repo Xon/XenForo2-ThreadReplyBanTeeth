@@ -322,8 +322,6 @@ class Thread extends XFCP_Thread
             return null;
         };
 
-        $structure->getters['ReplyBans'] = ['getter' => 'getReplyBans', 'cache' => false];
-
         $structure->options['svHasReplyBanned'] = \XF::options()->svReplyBanBanner ?? false;
 
         return $structure;
