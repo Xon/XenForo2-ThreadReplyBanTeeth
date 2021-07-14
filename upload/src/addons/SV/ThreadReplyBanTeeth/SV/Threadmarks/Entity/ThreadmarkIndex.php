@@ -138,21 +138,17 @@ class ThreadmarkIndex extends XFCP_ThreadmarkIndex
     public function isReplyBanned() : bool
     {
         $visitor = \XF::visitor();
-        if (!$visitor->user_id)
+        $userId = $visitor->user_id;
+        if (!$userId)
         {
             return false;
         }
 
         $container = $this->getIndexContent();
-        $replyBans = $container instanceof \XF\Entity\Thread
-            ? $container->ReplyBans
-            : null;
-
-        if ($replyBans && isset($replyBans[$visitor->user_id]))
+        if ($container instanceof \XF\Entity\Thread)
         {
-            $replyBan = $replyBans[$visitor->user_id];
-
-            return ($replyBan && (!$replyBan->expiry_date || $replyBan->expiry_date > \XF::$time));
+            /** @var \SV\ThreadReplyBanTeeth\XF\Entity\Thread $container */
+            return $container->isUserReplyBanned($userId);
         }
 
         return false;
