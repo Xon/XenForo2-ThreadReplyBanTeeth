@@ -255,8 +255,8 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        /** @var bool[] $replyBannedUsers */
-        $replyBannedUsers = $this->_getterCache['svReplyBannedUserIds'] ?? [];
+        /** @var bool[]|null $replyBannedUsers */
+        $replyBannedUsers = $this->_getterCache['svReplyBannedUserIds'] ?? null;
         $userIsReplyBanned = $replyBannedUsers[$userId] ?? null;
 
         if ($userIsReplyBanned === null)
@@ -271,8 +271,11 @@ class Thread extends XFCP_Thread
             }
             $userIsReplyBanned = $userIsReplyBanned ?? false;
 
-            $replyBannedUsers[$userId] = $userIsReplyBanned;
-            $this->_getterCache['svReplyBannedUserIds'] = $replyBannedUsers;
+            if ($replyBannedUsers !== null)
+            {
+                $replyBannedUsers[$userId] = $userIsReplyBanned;
+                $this->_getterCache['svReplyBannedUserIds'] = $replyBannedUsers;
+            }
         }
 
         return $userIsReplyBanned;
@@ -318,6 +321,8 @@ class Thread extends XFCP_Thread
 
             return null;
         };
+
+        $structure->getters['ReplyBans'] = ['getter' => 'getReplyBans', 'cache' => false];
 
         $structure->options['svHasReplyBanned'] = \XF::options()->svReplyBanBanner ?? false;
 
