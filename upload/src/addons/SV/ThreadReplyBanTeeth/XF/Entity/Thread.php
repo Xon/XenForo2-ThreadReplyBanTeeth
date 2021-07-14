@@ -267,7 +267,7 @@ class Thread extends XFCP_Thread
             {
                 $replyBan = $replyBans[$userId];
 
-                $userIsReplyBanned = ($replyBan && (!$replyBan->expiry_date || $replyBan->expiry_date > \XF::$time));
+                $userIsReplyBanned = ($replyBan && (!$replyBan->expiry_date || $replyBan->expiry_date <= \XF::$time));
             }
             $userIsReplyBanned = $userIsReplyBanned ?? false;
 
