@@ -1,6 +1,10 @@
 <xf:set var="$svThread" value="{{ $thread ?: $post.Thread }}" />
 <xf:if is="$svThread.hasOption('svHasReplyBanned') && $svThread.getOption('svHasReplyBanned') && $svThread.isUserReplyBanned($post->user_id)">
 	<div class="messageNotice messageNotice--reply-banned">
-		{{ phrase('svThreadReplyBanTeeth_is_reply_banned') }}
+		<xf:if is="$post && $post.User && $post.User.is_banned">
+			{{ phrase('svThreadReplyBanTeeth_is_banned') }}
+		<xf:else />
+			{{ phrase('svThreadReplyBanTeeth_is_reply_banned') }}
+		</xf:if>
 	</div>
 </xf:if>

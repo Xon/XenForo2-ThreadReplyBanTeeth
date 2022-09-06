@@ -255,6 +255,13 @@ class Thread extends XFCP_Thread
             return false;
         }
 
+        /** @var \XF\Entity\User|null $user */
+        $user = $this->em()->findCached('XF:User', $userId);
+        if ($user !== null && $user->is_banned)
+        {
+            return true;
+        }
+
         /** @var bool[]|null $replyBannedUsers */
         $replyBannedUsers = $this->_getterCache['svReplyBannedUserIds'] ?? null;
         $userIsReplyBanned = $replyBannedUsers[$userId] ?? null;
