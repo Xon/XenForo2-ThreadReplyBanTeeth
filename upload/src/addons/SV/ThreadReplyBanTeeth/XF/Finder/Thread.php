@@ -6,10 +6,7 @@ class Thread extends XFCP_Thread
 {
     protected $appliedReplyBan = false;
 
-    /**
-     * Mostly XF2.0 support
-     */
-    protected function includeReplyBan(int $userId = null)
+    protected function includeReplyBan(int $userId): void
     {
         if ($this->appliedReplyBan)
         {
@@ -17,11 +14,7 @@ class Thread extends XFCP_Thread
         }
         $this->appliedReplyBan = true;
 
-        if ($userId === null)
-        {
-            $userId = \XF::visitor()->user_id;
-        }
-        if (!$userId)
+        if ($userId === 0)
         {
             return;
         }
@@ -42,7 +35,7 @@ class Thread extends XFCP_Thread
      */
     public function withReadData($userId = null)
     {
-        $this->includeReplyBan($userId);
+        $this->includeReplyBan((int)($userId ?? \XF::visitor()->user_id));
 
         return parent::withReadData($userId);
     }

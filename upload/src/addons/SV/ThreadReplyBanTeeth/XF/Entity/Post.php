@@ -2,7 +2,6 @@
 
 namespace SV\ThreadReplyBanTeeth\XF\Entity;
 
-use XF\Mvc\Entity\Structure;
 use XF\Phrase;
 
 class Post extends XFCP_Post

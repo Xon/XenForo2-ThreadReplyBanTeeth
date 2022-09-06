@@ -15,7 +15,7 @@ class Setup extends AbstractSetup
     use StepRunnerUpgradeTrait;
     use StepRunnerUninstallTrait;
 
-    public function upgrade2010000Step1()
+    public function upgrade2010000Step1(): void
     {
         $this->renameOption('SV_ThreadReplyBanTeeth_EditBan', 'svEditReplyBan');
         $this->renameOption('SV_ThreadReplyBanTeeth_DeleteBan', 'svDeleteReplyBan');

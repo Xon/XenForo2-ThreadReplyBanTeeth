@@ -291,7 +291,7 @@ class Thread extends XFCP_Thread
     /**
      * @param int[]|null $userIds
      */
-    public function setUsersAreReplyBanned(array $userIds = null)
+    public function setUsersAreReplyBanned(?array $userIds)
     {
         if ($userIds === null)
         {
