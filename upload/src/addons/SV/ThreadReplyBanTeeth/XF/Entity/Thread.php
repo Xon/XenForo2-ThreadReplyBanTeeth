@@ -255,9 +255,9 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        /** @var \XF\Entity\User|null $user */
+        /** @var \XF\Entity\User|bool $user */
         $user = $this->em()->findCached('XF:User', $userId);
-        if ($user !== null && $user->is_banned)
+        if (($user instanceof \XF\Entity\User) && $user->is_banned)
         {
             return true;
         }
