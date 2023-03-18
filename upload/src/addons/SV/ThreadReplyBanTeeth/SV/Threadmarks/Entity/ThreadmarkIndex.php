@@ -6,6 +6,7 @@
 namespace SV\ThreadReplyBanTeeth\SV\Threadmarks\Entity;
 
 use SV\Threadmarks\Entity\ThreadmarkIndexInterface;
+use XF\Entity\Thread;
 use XF\Phrase;
 
 /**
@@ -145,7 +146,7 @@ class ThreadmarkIndex extends XFCP_ThreadmarkIndex
         }
 
         $container = $this->getIndexContent();
-        if ($container instanceof \XF\Entity\Thread)
+        if ($container instanceof Thread)
         {
             /** @var \SV\ThreadReplyBanTeeth\XF\Entity\Thread $container */
             return $container->isUserReplyBanned($userId);

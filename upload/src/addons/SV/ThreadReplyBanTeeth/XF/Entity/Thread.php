@@ -1,20 +1,25 @@
 <?php
+/**
+ * @noinspection PhpMissingReturnTypeInspection
+ * @noinspection PhpMultipleClassDeclarationsInspection
+ */
 
 namespace SV\ThreadReplyBanTeeth\XF\Entity;
 
+use XF\Entity\User;
 use XF\Mvc\Entity\Structure;
 use XF\Phrase;
 
 class Thread extends XFCP_Thread
 {
+    //********* SV/Threadmarks support
+
     /**
      * @param Phrase|string|null $error
      * @return bool
-     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canAddThreadmark(&$error = null)
     {
-        /** @noinspection PhpUndefinedMethodInspection */
         $hasPermission = parent::canAddThreadmark($error);
 
         if (!$hasPermission)
@@ -36,11 +41,9 @@ class Thread extends XFCP_Thread
     /**
      * @param Phrase|string|null $error
      * @return bool
-     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canEditThreadmark(&$error = null)
     {
-        /** @noinspection PhpUndefinedMethodInspection */
         $hasPermission = parent::canEditThreadmark($error);
 
         if (!$hasPermission)
@@ -63,12 +66,9 @@ class Thread extends XFCP_Thread
      * @param string             $type
      * @param Phrase|string|null $error
      * @return bool
-     * @noinspection PhpMissingParamTypeInspection
-     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canDeleteThreadmark($type, &$error = null)
     {
-        /** @noinspection PhpUndefinedMethodInspection */
         $hasPermission = parent::canDeleteThreadmark($type, $error);
 
         if (!$hasPermission)
@@ -90,11 +90,9 @@ class Thread extends XFCP_Thread
     /**
      * @param Phrase|string|null $error
      * @return bool
-     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canAddThreadmarkIndex(&$error = null)
     {
-        /** @noinspection PhpUndefinedMethodInspection */
         $hasPermission = parent::canAddThreadmarkIndex($error);
 
         if (!$hasPermission)
@@ -116,11 +114,9 @@ class Thread extends XFCP_Thread
     /**
      * @param Phrase|string|null $error
      * @return bool
-     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canLinkContentToIndex(&$error = null)
     {
-        /** @noinspection PhpUndefinedMethodInspection */
         $hasPermission = parent::canLinkContentToIndex($error);
 
         if (!$hasPermission)
@@ -139,10 +135,37 @@ class Thread extends XFCP_Thread
         return true;
     }
 
+    //********* SV/TitleEditHistory support
+
     /**
      * @param Phrase|string|null $error
      * @return bool
-     * @noinspection PhpMissingReturnTypeInspection
+     */
+    public function canEditThreadTitle(&$error = null)
+    {
+        $hasPermission = parent::canEditThreadTitle($error);
+
+        if (!$hasPermission)
+        {
+            return false;
+        }
+
+        if ($this->app()->options()->svEditReplyBan ?? true)
+        {
+            if ($this->isReplyBanned())
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    //********* XF support
+
+    /**
+     * @param Phrase|string|null $error
+     * @return bool
      */
     public function canEdit(&$error = null)
     {
@@ -168,7 +191,6 @@ class Thread extends XFCP_Thread
      * @param string             $type
      * @param Phrase|string|null $error
      * @return bool
-     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canDelete($type = 'soft', &$error = null)
     {
@@ -191,37 +213,8 @@ class Thread extends XFCP_Thread
     }
 
     /**
-     * Title Edit History support
-     *
      * @param Phrase|string|null $error
      * @return bool
-     * @noinspection PhpMissingReturnTypeInspection
-     */
-    public function canEditThreadTitle(&$error = null)
-    {
-        /** @noinspection PhpUndefinedMethodInspection */
-        $hasPermission = parent::canEditThreadTitle($error);
-
-        if (!$hasPermission)
-        {
-            return false;
-        }
-
-        if ($this->app()->options()->svEditReplyBan ?? true)
-        {
-            if ($this->isReplyBanned())
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * @param Phrase|string|null $error
-     * @return bool
-     * @noinspection PhpMissingReturnTypeInspection
      */
     public function canReplyBan(&$error = null)
     {
@@ -243,6 +236,8 @@ class Thread extends XFCP_Thread
         return true;
     }
 
+    //*********
+
     public function isReplyBanned(): bool
     {
         return $this->isUserReplyBanned(\XF::visitor()->user_id);
@@ -255,9 +250,9 @@ class Thread extends XFCP_Thread
             return false;
         }
 
-        /** @var \XF\Entity\User|bool $user */
+        /** @var User|bool $user */
         $user = $this->em()->findCached('XF:User', $userId);
-        if (($user instanceof \XF\Entity\User) && $user->is_banned)
+        if (($user instanceof User) && $user->is_banned)
         {
             return true;
         }
@@ -306,7 +301,6 @@ class Thread extends XFCP_Thread
     /**
      * @param Structure $structure
      * @return Structure
-     * @noinspection PhpMissingReturnTypeInspection
      */
     public static function getStructure(Structure $structure)
     {

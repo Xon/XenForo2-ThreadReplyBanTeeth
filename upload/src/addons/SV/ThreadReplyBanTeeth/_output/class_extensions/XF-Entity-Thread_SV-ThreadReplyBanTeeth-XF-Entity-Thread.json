@@ -1,6 +1,6 @@
 {
     "from_class": "XF\\Entity\\Thread",
     "to_class": "SV\\ThreadReplyBanTeeth\\XF\\Entity\\Thread",
-    "execute_order": 59910,
+    "execute_order": 5991000,
     "active": true
 }
