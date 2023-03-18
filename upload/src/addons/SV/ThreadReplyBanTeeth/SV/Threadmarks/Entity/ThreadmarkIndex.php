@@ -21,110 +21,33 @@ class ThreadmarkIndex extends XFCP_ThreadmarkIndex
      */
     public function canDelete($type = 'soft', &$error = null)
     {
-        $hasPermission = parent::canDelete($type, $error);
-
-        if (!$hasPermission)
-        {
-            return false;
-        }
-
-        if ($this->app()->options()->svThreadmarkReplyBan ?? true)
-        {
-            if ($this->isReplyBanned())
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return parent::canDelete($type, $error) && $this->svExtraReplyBanCheck();
     }
 
-    /**
-     * @param Phrase|string|null $error
-     * @return bool
-     */
     public function canEdit(&$error = null)
     {
-        $hasPermission = parent::canEdit($error);
-
-        if (!$hasPermission)
-        {
-            return false;
-        }
-
-        if ($this->app()->options()->svThreadmarkReplyBan ?? true)
-        {
-            if ($this->isReplyBanned())
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return parent::canEdit($error) && $this->svExtraReplyBanCheck();
     }
 
-    /**
-     * @param Phrase|string|null $error
-     * @return bool
-     */
     public function canSortContent(&$error = null)
     {
-        $hasPermission = parent::canSortContent($error);
-
-        if (!$hasPermission)
-        {
-            return false;
-        }
-
-        if ($this->app()->options()->svThreadmarkReplyBan ?? true)
-        {
-            if ($this->isReplyBanned())
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return parent::canSortContent($error) && $this->svExtraReplyBanCheck();
     }
 
-    /**
-     * @param Phrase|string|null $error
-     * @return bool
-     */
     public function canAddContent(&$error = null)
     {
-        $hasPermission = parent::canAddContent($error);
-
-        if (!$hasPermission)
-        {
-            return false;
-        }
-
-        if ($this->app()->options()->svThreadmarkReplyBan ?? true)
-        {
-            if ($this->isReplyBanned())
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return parent::canAddContent($error) && $this->svExtraReplyBanCheck();
     }
 
-    /**
-     * @param ThreadmarkIndexInterface $content
-     * @param Phrase|string|null       $error
-     * @return bool
-     */
     public function canDeleteContent(ThreadmarkIndexInterface $content, &$error = null)
     {
-        $hasPermission = parent::canDeleteContent($content, $error);
+        return parent::canDeleteContent($content, $error) && $this->svExtraReplyBanCheck();
+    }
 
-        if (!$hasPermission)
-        {
-            return false;
-        }
+    //*********
 
+    protected function svExtraReplyBanCheck(): bool
+    {
         if ($this->app()->options()->svThreadmarkReplyBan ?? true)
         {
             if ($this->isReplyBanned())
