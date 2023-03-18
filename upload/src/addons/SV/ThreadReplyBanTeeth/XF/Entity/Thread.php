@@ -68,6 +68,11 @@ class Thread extends XFCP_Thread
         return parent::canReplyBan($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionReplyBan);
     }
 
+    public function canLockUnlock(&$error = null)
+    {
+        return parent::canLockUnlock($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThread);
+    }
+
     //*********
 
     protected function svExtraReplyBanCheck(string $option): bool
