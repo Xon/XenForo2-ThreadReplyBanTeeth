@@ -16,6 +16,12 @@ class Thread extends XFCP_Thread
     public static $svReplyBanOptionReplyBan = 'svReplyBanReplyBan';
     public static $svReplyBanOptionThread   = 'svThreadReplyBan';
 
+    //********* SV/CollaborativeThreads support
+
+    public function canEditCollaboration(&$error = null)
+    {
+        return parent::canEditCollaboration($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThread);
+    }
 
     //********* SV/Threadmarks support
 
@@ -71,6 +77,31 @@ class Thread extends XFCP_Thread
     public function canLockUnlock(&$error = null)
     {
         return parent::canLockUnlock($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThread);
+    }
+
+    public function canStickUnstick(&$error = null)
+    {
+        return parent::canStickUnstick($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThread);
+    }
+
+    public function canCreatePoll(&$error = null)
+    {
+        return parent::canCreatePoll($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThread);
+    }
+
+    public function canChangeType(&$error = null): bool
+    {
+        return parent::canChangeType($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThread);
+    }
+
+    public function canMove(&$error = null): bool
+    {
+        return parent::canMove($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThread);
+    }
+
+    public function canMerge(&$error = null): bool
+    {
+        return parent::canMerge($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThread);
     }
 
     //*********

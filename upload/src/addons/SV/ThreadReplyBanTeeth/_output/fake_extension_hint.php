@@ -9,6 +9,7 @@ namespace SV\ThreadReplyBanTeeth\XF\Entity
     /**
      * @mixin \SV\Threadmarks\XF\Entity\Thread
      * @mixin \SV\PostFriction\XF\Entity\Thread
+     * @mixin \SV\CollaborativeThreads\XF\Entity\Thread
      */
 	class XFCP_Thread extends \XF\Entity\Thread {}
 }
