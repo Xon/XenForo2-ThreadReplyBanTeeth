@@ -1,17 +1,23 @@
 <?php
 /**
+ * @noinspection PhpMultipleClassDeclarationsInspection
  * @noinspection PhpMissingReturnTypeInspection
  */
 
 namespace SV\ThreadReplyBanTeeth\XF\Entity;
-
-use XF\Phrase;
 
 /**
  * @property-read Thread $Thread
  */
 class Post extends XFCP_Post
 {
+    //******** SV/ModToolsImprovements
+
+    public function canHardMerge(&$error = null): bool
+    {
+        return parent::canHardMerge($error) && $this->svExtraReplyBanCheck('svDeleteReplyBan');
+    }
+
     //********* XF support
 
     public function canEdit(&$error = null)
@@ -32,6 +38,11 @@ class Post extends XFCP_Post
     public function canWarn(&$error = null)
     {
         return parent::canWarn($error) && $this->svExtraReplyBanCheck('svWarnReplyBan');
+    }
+
+    public function canMerge(&$error = null)
+    {
+        return parent::canMerge($error) && $this->svExtraReplyBanCheck('svDeleteReplyBan');
     }
 
     //*********
