@@ -44,6 +44,8 @@ class Thread extends XFCP_Thread
         return parent::canLinkContentToIndex($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThreadmark);
     }
 
+    //********* SV/PostFriction support
+
     public function canEditPostFriction(&$error = null): bool
     {
         return parent::canEditPostFriction($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThread);
