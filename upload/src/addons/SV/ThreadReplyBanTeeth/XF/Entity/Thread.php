@@ -135,32 +135,6 @@ class Thread extends XFCP_Thread
         return true;
     }
 
-    //********* SV/TitleEditHistory support
-
-    /**
-     * @param Phrase|string|null $error
-     * @return bool
-     */
-    public function canEditThreadTitle(&$error = null)
-    {
-        $hasPermission = parent::canEditThreadTitle($error);
-
-        if (!$hasPermission)
-        {
-            return false;
-        }
-
-        if ($this->app()->options()->svEditReplyBan ?? true)
-        {
-            if ($this->isReplyBanned())
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     //********* XF support
 
     /**
