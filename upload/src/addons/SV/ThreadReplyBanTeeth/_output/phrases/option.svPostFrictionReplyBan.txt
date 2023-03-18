@@ -1,1 +1,1 @@
-Ban Post Friction config editing on thread reply ban
+Ban post friction changes on thread reply ban
