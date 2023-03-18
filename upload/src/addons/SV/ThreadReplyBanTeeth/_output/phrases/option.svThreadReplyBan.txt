@@ -1,0 +1,1 @@
+Ban thread changes on thread reply ban

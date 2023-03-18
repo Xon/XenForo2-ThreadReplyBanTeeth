@@ -1,1 +1,0 @@
-Ban post friction changes on thread reply ban

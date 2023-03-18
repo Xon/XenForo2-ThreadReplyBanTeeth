@@ -12,229 +12,74 @@ use XF\Phrase;
 
 class Thread extends XFCP_Thread
 {
+    public static $svReplyBanOptionThreadmark = 'svThreadmarkReplyBan';
+    public static $svReplyBanOptionReplyBan = 'svReplyBanReplyBan';
+    public static $svReplyBanOptionThread   = 'svThreadReplyBan';
+
+
     //********* SV/Threadmarks support
 
-    /**
-     * @param Phrase|string|null $error
-     * @return bool
-     */
     public function canAddThreadmark(&$error = null)
     {
-        $hasPermission = parent::canAddThreadmark($error);
-
-        if (!$hasPermission)
-        {
-            return false;
-        }
-
-        if ($this->app()->options()->svThreadmarkReplyBan ?? true)
-        {
-            if ($this->isReplyBanned())
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return parent::canAddThreadmark( $error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThreadmark);
     }
 
-    /**
-     * @param Phrase|string|null $error
-     * @return bool
-     */
     public function canEditThreadmark(&$error = null)
     {
-        $hasPermission = parent::canEditThreadmark($error);
-
-        if (!$hasPermission)
-        {
-            return false;
-        }
-
-        if ($this->app()->options()->svThreadmarkReplyBan ?? true)
-        {
-            if ($this->isReplyBanned())
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return parent::canEditThreadmark( $error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThreadmark);
     }
 
-    /**
-     * @param string             $type
-     * @param Phrase|string|null $error
-     * @return bool
-     */
     public function canDeleteThreadmark($type, &$error = null)
     {
-        $hasPermission = parent::canDeleteThreadmark($type, $error);
-
-        if (!$hasPermission)
-        {
-            return false;
-        }
-
-        if ($this->app()->options()->svThreadmarkReplyBan ?? true)
-        {
-            if ($this->isReplyBanned())
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return parent::canDeleteThreadmark($type, $error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThreadmark);
     }
 
-    /**
-     * @param Phrase|string|null $error
-     * @return bool
-     */
     public function canAddThreadmarkIndex(&$error = null)
     {
-        $hasPermission = parent::canAddThreadmarkIndex($error);
-
-        if (!$hasPermission)
-        {
-            return false;
-        }
-
-        if ($this->app()->options()->svThreadmarkReplyBan ?? true)
-        {
-            if ($this->isReplyBanned())
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return parent::canAddThreadmarkIndex($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThreadmark);
     }
 
-    /**
-     * @param Phrase|string|null $error
-     * @return bool
-     */
     public function canLinkContentToIndex(&$error = null)
     {
-        $hasPermission = parent::canLinkContentToIndex($error);
-
-        if (!$hasPermission)
-        {
-            return false;
-        }
-
-        if ($this->app()->options()->svThreadmarkReplyBan ?? true)
-        {
-            if ($this->isReplyBanned())
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return parent::canLinkContentToIndex($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThreadmark);
     }
 
-    /**
-     * @param Phrase|string|null $error
-     * @return bool
-     */
     public function canEditPostFriction(&$error = null): bool
     {
-        $hasPermission = parent::canEditPostFriction($error);
-
-        if (!$hasPermission)
-        {
-            return false;
-        }
-
-        if ($this->app()->options()->svPostFrictionReplyBan ?? true)
-        {
-            if ($this->isReplyBanned())
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return parent::canEditPostFriction($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThread);
     }
 
     //********* XF support
 
-    /**
-     * @param Phrase|string|null $error
-     * @return bool
-     */
     public function canEdit(&$error = null)
     {
-        $hasPermission = parent::canEdit($error);
-
-        if (!$hasPermission)
-        {
-            return false;
-        }
-
-        if ($this->app()->options()->svEditReplyBan ?? true)
-        {
-            if ($this->isReplyBanned())
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return parent::canEdit($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThread);
     }
 
-    /**
-     * @param string             $type
-     * @param Phrase|string|null $error
-     * @return bool
-     */
     public function canDelete($type = 'soft', &$error = null)
     {
-        $hasPermission = parent::canDelete($type, $error);
-
-        if (!$hasPermission)
-        {
-            return false;
-        }
-
-        if ($this->app()->options()->svDeleteReplyBan ?? true)
-        {
-            if ($this->isReplyBanned())
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return parent::canDelete($type, $error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThread);
     }
 
-    /**
-     * @param Phrase|string|null $error
-     * @return bool
-     */
     public function canReplyBan(&$error = null)
     {
-        $hasPermission = parent::canReplyBan($error);
-
-        if (!$hasPermission)
-        {
-            return false;
-        }
-
-        if ($this->app()->options()->svReplyBanReplyBan ?? true)
-        {
-            if ($this->isReplyBanned())
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return parent::canReplyBan($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionReplyBan);
     }
 
     //*********
+
+    protected function svExtraReplyBanCheck(string $option): bool
+    {
+        if ($this->app()->options()->{$option} ?? true)
+        {
+            if ($this->isReplyBanned())
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     public function isReplyBanned(): bool
     {

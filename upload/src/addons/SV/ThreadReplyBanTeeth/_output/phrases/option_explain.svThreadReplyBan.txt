@@ -1,0 +1,6 @@
+Prevent someone who has been thread reply banned from editing various thread settings in that thread. covers:<ul>
+<li>Editing the thread</li>
+<li>Deleting the thread</li>
+<li>Lock/unlock</li>
+<li>Post friction settings</li>
+</ul>
