@@ -135,6 +135,30 @@ class Thread extends XFCP_Thread
         return true;
     }
 
+    /**
+     * @param Phrase|string|null $error
+     * @return bool
+     */
+    public function canEditPostFriction(&$error = null): bool
+    {
+        $hasPermission = parent::canEditPostFriction($error);
+
+        if (!$hasPermission)
+        {
+            return false;
+        }
+
+        if ($this->app()->options()->svPostFrictionReplyBan ?? true)
+        {
+            if ($this->isReplyBanned())
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     //********* XF support
 
     /**
