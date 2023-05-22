@@ -3,6 +3,8 @@
  * @noinspection PhpMissingReturnTypeInspection
  */
 
+declare(strict_types=1);
+
 namespace SV\ThreadReplyBanTeeth\SV\Threadmarks\Entity;
 
 use SV\Threadmarks\Entity\ThreadmarkIndexInterface;
@@ -62,8 +64,8 @@ class ThreadmarkIndex extends XFCP_ThreadmarkIndex
     public function isReplyBanned() : bool
     {
         $visitor = \XF::visitor();
-        $userId = $visitor->user_id;
-        if (!$userId)
+        $userId = (int)$visitor->user_id;
+        if ($userId === 0)
         {
             return false;
         }

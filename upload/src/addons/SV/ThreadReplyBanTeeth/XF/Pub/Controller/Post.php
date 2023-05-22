@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SV\ThreadReplyBanTeeth\XF\Pub\Controller;
 
 use XF\Mvc\Reply\Exception as ExceptionReply;
@@ -15,8 +17,8 @@ class Post extends XFCP_Post
      */
     protected function assertViewablePost($postId, array $extraWith = [])
     {
-        $userId = \XF::visitor()->user_id;
-        if ($userId)
+        $userId = (int)\XF::visitor()->user_id;
+        if ($userId !== 0)
         {
             $options = $this->options();
             if (($options->svEditReplyBan ?? true) ||

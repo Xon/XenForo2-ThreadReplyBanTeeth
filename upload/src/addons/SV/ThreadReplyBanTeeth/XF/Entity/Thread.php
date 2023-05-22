@@ -4,11 +4,12 @@
  * @noinspection PhpMultipleClassDeclarationsInspection
  */
 
+declare(strict_types=1);
+
 namespace SV\ThreadReplyBanTeeth\XF\Entity;
 
 use XF\Entity\User;
 use XF\Mvc\Entity\Structure;
-use XF\Phrase;
 
 class Thread extends XFCP_Thread
 {
@@ -121,12 +122,19 @@ class Thread extends XFCP_Thread
 
     public function isReplyBanned(): bool
     {
-        return $this->isUserReplyBanned(\XF::visitor()->user_id);
+        $visitor = \XF::visitor();
+        $userId = (int)$visitor->user_id;
+        if ($userId === 0)
+        {
+            return false;
+        }
+
+        return $this->isUserReplyBanned($userId);
     }
 
     public function isUserReplyBanned(int $userId): bool
     {
-        if (!$userId)
+        if ($userId === 0)
         {
             return false;
         }
@@ -138,19 +146,20 @@ class Thread extends XFCP_Thread
             return true;
         }
 
-        /** @var bool[]|null $replyBannedUsers */
+        /** @var array<int,bool>|null $replyBannedUsers */
         $replyBannedUsers = $this->_getterCache['svReplyBannedUserIds'] ?? null;
+        /** @var ?bool $userIsReplyBanned */
         $userIsReplyBanned = $replyBannedUsers[$userId] ?? null;
 
         if ($userIsReplyBanned === null)
         {
             $replyBans = $this->ReplyBans;
+            $replyBan = $replyBans[$userId] ?? null;
 
-            if (isset($replyBans[$userId]))
+            if ($replyBan !== null)
             {
-                $replyBan = $replyBans[$userId];
-
-                $userIsReplyBanned = ($replyBan && (!$replyBan->expiry_date || $replyBan->expiry_date >= \XF::$time));
+                $expiryDate = (int)$replyBan->expiry_date;
+                $userIsReplyBanned = $expiryDate === 0 || $expiryDate >= \XF::$time;
             }
             $userIsReplyBanned = $userIsReplyBanned ?? false;
 
@@ -188,8 +197,8 @@ class Thread extends XFCP_Thread
         $structure = parent::getStructure($structure);
 
         $structure->withAliases['full'][] = function () {
-            $userId = \XF::visitor()->user_id;
-            if ($userId)
+            $userId = (int)\XF::visitor()->user_id;
+            if ($userId !== 0)
             {
                 $options = \XF::app()->options();
 

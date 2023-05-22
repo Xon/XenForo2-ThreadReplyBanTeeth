@@ -4,10 +4,12 @@
  * @noinspection PhpMissingReturnTypeInspection
  */
 
+declare(strict_types=1);
+
 namespace SV\ThreadReplyBanTeeth\XF\Entity;
 
 /**
- * @property-read Thread $Thread
+ * @property-read ?Thread $Thread
  */
 class Post extends XFCP_Post
 {

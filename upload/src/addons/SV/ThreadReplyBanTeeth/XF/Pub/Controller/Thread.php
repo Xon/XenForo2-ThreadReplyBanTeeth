@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SV\ThreadReplyBanTeeth\XF\Pub\Controller;
 
 use XF\Mvc\Entity\AbstractCollection;
@@ -24,7 +26,8 @@ class Thread extends XFCP_Thread
             {
                 return $reply;
             }
-            if (\XF::visitor()->user_id && (!$thread->hasOption('threadmark_category_id') || !$thread->getOption('threadmark_category_id')))
+            $userId = (int)\XF::visitor()->user_id;
+            if ($userId !== 0 && (!$thread->hasOption('threadmark_category_id') || !$thread->getOption('threadmark_category_id')))
             {
                 /** @var AbstractCollection|array $posts */
                 $posts = $reply->getParam('posts') ?? [];

@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SV\ThreadReplyBanTeeth\XF\Finder;
 
 class Thread extends XFCP_Thread
 {
+    /** @var bool */
     protected $appliedReplyBan = false;
 
     protected function includeReplyBan(int $userId): void
