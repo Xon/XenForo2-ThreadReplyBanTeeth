@@ -1,11 +1,13 @@
-# ThreadReplyBanTeeth
+# Thread reply ban improvements
 
-Give thread reply bans more bite, by providing global options to disable the following functionality in a thread someone is reply banned from;
+Supports extending thread reply bans into full thread-bans, but optionally disabling the following functionality in a thread someone is reply banned from;
 - Edits
 - Deletes
 - Reactions
 - Thread reply bans
 - Threadmarks
+- Thread edits
 
-A non-default-enabled option to display a banner on a reply-banned user's post
-This feature adds an additional (cheap) query per thread view.
+Will display if a user is XF banned or reply-banned via a banner on the user's post.
+This can be controlled via the option "Display thread reply banned banner on user's posts".
+Note; this feature required an additional (cheap) select query.
