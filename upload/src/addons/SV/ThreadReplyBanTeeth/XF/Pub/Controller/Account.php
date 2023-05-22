@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace SV\ThreadReplyBanTeeth\XF\Pub\Controller;
 
 use XF\Entity\ThreadReplyBan as ThreadReplyBanEntity;
+use XF\Mvc\Entity\ArrayCollection;
 use XF\Mvc\ParameterBag;
 use XF\Mvc\Reply\AbstractReply;
 use XF\Repository\ThreadReplyBan as ThreadReplyBanRepo;
@@ -59,7 +60,7 @@ class Account extends XFCP_Account
 
         $this->assertValidPage($page, $perPage, $total, 'account/thread-bans', null);
 
-        $replyBans = $finder->fetch();
+        $replyBans = $total !== 0 ? $finder->fetch() : new ArrayCollection([]);
         if (\XF::isAddOnActive('SV/ExtendedIgnore'))
         {
             foreach ($replyBans as $replyBan)
