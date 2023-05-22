@@ -22,6 +22,7 @@ namespace SV\ThreadReplyBanTeeth\XF\Finder
 
 namespace SV\ThreadReplyBanTeeth\XF\Pub\Controller
 {
+	class XFCP_Account extends \XF\Pub\Controller\Account {}
 	class XFCP_Post extends \XF\Pub\Controller\Post {}
 	class XFCP_Thread extends \XF\Pub\Controller\Thread {}
 }

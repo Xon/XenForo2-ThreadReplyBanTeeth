@@ -1,0 +1,9 @@
+{
+    "template": "account_wrapper",
+    "description": "Adds reply-banned threads to navigation items to the account wrapper sidebar",
+    "execution_order": 11,
+    "enabled": true,
+    "action": "preg_replace",
+    "find": "#[\\t\\ ]*<!--\\[XF:settings_links:bottom\\]-->#si",
+    "replace": "<xf:macro name=\"svThreadReplyBanTeeth_macros::account_wrapper\" />\n$0"
+}

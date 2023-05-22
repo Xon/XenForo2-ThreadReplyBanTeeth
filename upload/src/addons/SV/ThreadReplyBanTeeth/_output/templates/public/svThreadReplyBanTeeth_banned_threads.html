@@ -1,0 +1,44 @@
+<xf:wrap template="account_wrapper">
+	<xf:set var="$pageSelected" value="thread_bans" />
+</xf:wrap>
+<xf:title page="{$page}">{{ phrase('svThreadReplyBanTeeth_banned_from_threads') }}</xf:title>
+
+<xf:if is="$replyBans is not empty">
+	<div class="block-outer">
+		<xf:pagenav params="{$filters}"
+					page="{$page}" perpage="{$perPage}" total="{$total}"
+					link="account/thread-bans"
+					wrapperclass="block-outer-main" />
+	</div>
+	<div class="block-container">
+		<xf:css src="structured_list.less" />
+		<div class="block-body">
+			<div class="structItemContainer">
+				<xf:foreach loop="$replyBans" value="$replyBan">
+					<xf:set var="$extra">
+						<dl class="pairs pairs--inline">
+							<dt>{{ phrase('svThreadReplyBanTeeth_ban_date') }}</dt>
+							<dd><xf:date time="$replyBan.ban_date" /></dd>
+						</dl>
+					</xf:set>
+					<xf:macro template="thread_list_macros" name="item"
+							  arg-thread="{$replyBan.Thread}"
+							  arg-chooseName="thread_ids"
+							  arg-showWatched="{{ false }}"
+							  arg-extraInfo="{$extra}"
+							  arg-allowEdit="{{ false }}" 
+							  arg-forceShowForum="{{ true }}"
+							  />
+				</xf:foreach>
+			</div>
+		</div>
+	</div>
+	<xf:pagenav params="{$filters}"
+				page="{$page}" perpage="{$perPage}" total="{$total}"
+				link="account/thread-bans"
+				wrapperclass="block-outer block-outer--after" />
+<xf:else />	
+	<div class="blockMessage">
+		<p>{{ phrase('svThreadReplyBanTeeth_you_are_not_bannned_from_any_threads') }}</p>
+	</div>
+</xf:if>

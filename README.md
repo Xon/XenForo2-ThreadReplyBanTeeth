@@ -1,4 +1,4 @@
-# Thread reply ban improvements
+# Thread reply ban teeth
 
 Supports extending thread reply bans into full thread-bans, but optionally disabling the following functionality in a thread someone is reply banned from;
 - Edits

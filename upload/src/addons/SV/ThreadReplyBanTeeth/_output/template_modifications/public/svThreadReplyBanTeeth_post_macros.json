@@ -5,5 +5,5 @@
     "enabled": true,
     "action": "preg_replace",
     "find": "#[\\t ]*<xf:if is=\"\\$post\\.warning_message#i",
-    "replace": "<xf:include template=\"svThreadReplyBanTeeth_post_macros\" />\n$0"
+    "replace": "<xf:macro name=\"svThreadReplyBanTeeth_macros::post\" arg-post=\"{$post}\" />\n$0"
 }
