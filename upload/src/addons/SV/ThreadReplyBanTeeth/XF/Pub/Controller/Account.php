@@ -22,6 +22,10 @@ class Account extends XFCP_Account
 {
     public function actionThreadBans(ParameterBag $params): AbstractReply
     {
+        if (!(\XF::options()->svReplyBanList ?? true))
+        {
+            return $this->notFound();
+        }
         $visitor = \XF::visitor();
         $userId = (int)$visitor->user_id;
         assert($userId !== 0);

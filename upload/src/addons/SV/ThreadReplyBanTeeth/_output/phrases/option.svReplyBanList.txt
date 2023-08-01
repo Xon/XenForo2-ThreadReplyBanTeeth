@@ -1,0 +1,1 @@
+Display user's thread reply ban list when viewing account details
