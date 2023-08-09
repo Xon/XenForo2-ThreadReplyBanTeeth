@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace SV\ThreadReplyBanTeeth\XF\Entity;
 
 use XF\Entity\User;
+use XF\Mvc\Entity\AbstractCollection;
 use XF\Mvc\Entity\Structure;
 
 class Thread extends XFCP_Thread
@@ -148,7 +149,7 @@ class Thread extends XFCP_Thread
 
         /** @var array<int,bool>|null $replyBannedUsers */
         $replyBannedUsers = $this->_getterCache['svReplyBannedUserIds'] ?? null;
-        /** @var ?bool $userIsReplyBanned */
+        /** @var bool|null $userIsReplyBanned */
         $userIsReplyBanned = $replyBannedUsers[$userId] ?? null;
 
         if ($userIsReplyBanned === null)
@@ -170,7 +171,45 @@ class Thread extends XFCP_Thread
             }
         }
 
-        return $userIsReplyBanned;
+        if ($userIsReplyBanned)
+        {
+            return true;
+        }
+
+        if (\XF::isAddOnActive('SV/ForumBan'))
+        {
+            /** @var array<int,bool>|null $forumBannedUsers */
+            $forumBannedUsers = $this->_getterCache['svForumBannedUserIds'] ?? null;
+            /** @var bool|null $userIsForumBanned */
+            $userIsForumBanned = $forumBannedUsers[$userId] ?? null;
+
+            if ($userIsForumBanned === null)
+            {
+                /** @var \SV\ForumBan\Entity\ForumBan[]|AbstractCollection $forumBans */
+                $forumBans = $this->SvForumBans;
+                $forumBan = $forumBans[$userId] ?? null;
+
+                if ($forumBan !== null)
+                {
+                    $expiryDate = (int)$forumBan->expiry_date;
+                    $userIsForumBanned = $expiryDate === 0 || $expiryDate >= \XF::$time;
+                }
+                $userIsForumBanned = $userIsForumBanned ?? false;
+
+                if ($forumBannedUsers !== null)
+                {
+                    $forumBannedUsers[$userId] = $userIsForumBanned;
+                    $this->_getterCache['svForumBannedUserIds'] = $forumBannedUsers;
+                }
+            }
+
+            if ($userIsForumBanned)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -185,6 +224,21 @@ class Thread extends XFCP_Thread
         else
         {
             $this->_getterCache['svReplyBannedUserIds'] = $userIds;
+        }
+    }
+
+    /**
+     * @param int[]|null $userIds
+     */
+    public function setUsersAreForumBanned(?array $userIds)
+    {
+        if ($userIds === null)
+        {
+            unset($this->_getterCache['svForumBannedUserIds']);
+        }
+        else
+        {
+            $this->_getterCache['svForumBannedUserIds'] = $userIds;
         }
     }
 

@@ -63,6 +63,34 @@ class Thread extends XFCP_Thread
                     }
                     // update the post cache to avoid additional queries
                     $thread->setUsersAreReplyBanned($replyBannedUserIds);
+
+                    if (\XF::isAddOnActive('SV/ForumBan'))
+                    {
+                        $forumBannedUserIds = [];
+                        $isForumBannedRaw = \XF::finder('SV\ForumBan:ForumBan')
+                            ->where('node_id', $thread->node_id)
+                            ->where('user_id', \array_keys($postsByUserIds))
+                            ->whereOr(['expiry_date', '=', 0], ['expiry_date', '>=', \XF::$time])
+                            ->fetchRaw(['fetchOnly' => ['user_id']]);
+                        foreach ($isForumBannedRaw as $row)
+                        {
+                            $forumBannedUserIds[$row['user_id']] = true;
+                        }
+
+                        // negative cache
+                        foreach ($posts as $post)
+                        {
+                            $userId = $post->user_id;
+                            if (!isset($forumBannedUserIds[$userId]))
+                            {
+                                $forumBannedUserIds[$userId] = false;
+                            }
+                        }
+
+                        // update the post cache to avoid additional queries
+                        $thread->setUsersAreForumBanned($forumBannedUserIds);
+                    }
+
                 }
             }
             else
