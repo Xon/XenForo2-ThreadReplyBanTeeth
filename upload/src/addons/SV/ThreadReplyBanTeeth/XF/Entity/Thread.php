@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace SV\ThreadReplyBanTeeth\XF\Entity;
 
+use SV\ForumBan\Entity\ForumBan as ForumBanEntity;
 use XF\Entity\User;
 use XF\Mvc\Entity\AbstractCollection;
 use XF\Mvc\Entity\Structure;
@@ -185,7 +186,8 @@ class Thread extends XFCP_Thread
 
             if ($userIsForumBanned === null)
             {
-                /** @var \SV\ForumBan\Entity\ForumBan[]|AbstractCollection $forumBans */
+                /** @var \SV\ForumBan\XF\Entity\Thread $this */
+                /** @var ForumBanEntity[]|AbstractCollection $forumBans */
                 $forumBans = $this->SvForumBans;
                 $forumBan = $forumBans[$userId] ?? null;
 

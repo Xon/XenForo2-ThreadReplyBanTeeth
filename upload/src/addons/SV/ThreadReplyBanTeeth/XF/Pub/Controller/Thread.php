@@ -7,6 +7,7 @@ namespace SV\ThreadReplyBanTeeth\XF\Pub\Controller;
 use XF\Mvc\Entity\AbstractCollection;
 use XF\Mvc\ParameterBag;
 use XF\Mvc\Reply\View as ViewReply;
+use function array_keys;
 
 /**
  * Extends \XF\Pub\Controller\Thread
@@ -45,7 +46,7 @@ class Thread extends XFCP_Thread
                     $replyBannedUserIds = [];
                     $isReplyBannedRaw = \XF::finder('XF:ThreadReplyBan')
                                            ->where('thread_id', $thread->thread_id)
-                                           ->where('user_id', \array_keys($postsByUserIds))
+                                           ->where('user_id', array_keys($postsByUserIds))
                                            ->whereOr(['expiry_date', '=', 0],['expiry_date', '>=', \XF::$time])
                                            ->fetchRaw(['fetchOnly' => ['user_id']]);
                     foreach ($isReplyBannedRaw as $row)
@@ -69,7 +70,7 @@ class Thread extends XFCP_Thread
                         $forumBannedUserIds = [];
                         $isForumBannedRaw = \XF::finder('SV\ForumBan:ForumBan')
                             ->where('node_id', $thread->node_id)
-                            ->where('user_id', \array_keys($postsByUserIds))
+                            ->where('user_id', array_keys($postsByUserIds))
                             ->whereOr(['expiry_date', '=', 0], ['expiry_date', '>=', \XF::$time])
                             ->fetchRaw(['fetchOnly' => ['user_id']]);
                         foreach ($isForumBannedRaw as $row)
