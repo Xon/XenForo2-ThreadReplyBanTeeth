@@ -107,6 +107,11 @@ class Thread extends XFCP_Thread
         return parent::canMerge($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThread);
     }
 
+    public function canEditTags(&$error = null)
+    {
+        return parent::canEditTags($error) && $this->svExtraReplyBanCheck(static::$svReplyBanOptionThread);
+    }
+
     //*********
 
     public function svExtraReplyBanCheck(string $option): bool
