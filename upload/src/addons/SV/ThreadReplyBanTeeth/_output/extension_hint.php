@@ -20,6 +20,11 @@ namespace SV\ThreadReplyBanTeeth\XF\Finder
 	class XFCP_Thread extends \XF\Finder\Thread {}
 }
 
+namespace SV\ThreadReplyBanTeeth\XF\Poll
+{
+	class XFCP_Thread extends \XF\Poll\Thread {}
+}
+
 namespace SV\ThreadReplyBanTeeth\XF\Pub\Controller
 {
 	class XFCP_Account extends \XF\Pub\Controller\Account {}

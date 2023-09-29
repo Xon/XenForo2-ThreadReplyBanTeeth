@@ -1,0 +1,6 @@
+{
+    "from_class": "XF\\Poll\\Thread",
+    "to_class": "SV\\ThreadReplyBanTeeth\\XF\\Poll\\Thread",
+    "execute_order": 5991000,
+    "active": true
+}

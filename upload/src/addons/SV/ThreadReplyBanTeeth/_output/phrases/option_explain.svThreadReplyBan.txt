@@ -3,7 +3,7 @@ Prevent someone who has been thread reply banned from editing various thread set
 <li>Deleting the thread</li>
 <li>Lock/unlock</li>
 <li>Stick/unstick thread</li>
-<li>Create polls</li>
+<li>Create/edit/delete polls</li>
 <li>Post friction settings (<i>SV/PostFriction</i> add-on)</li>
 <li>Thread Collaboration settings (<i>SV/CollaborativeThreads</i> add-on)</li>
 </ul>

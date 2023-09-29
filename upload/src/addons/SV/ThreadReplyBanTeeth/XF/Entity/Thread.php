@@ -109,7 +109,7 @@ class Thread extends XFCP_Thread
 
     //*********
 
-    protected function svExtraReplyBanCheck(string $option): bool
+    public function svExtraReplyBanCheck(string $option): bool
     {
         if ($this->app()->options()->{$option} ?? true)
         {
