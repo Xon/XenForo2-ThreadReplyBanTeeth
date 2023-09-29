@@ -1,8 +1,9 @@
 <?php
+/**
+ * @noinspection PhpMissingReturnTypeInspection
+ */
 
 namespace SV\ThreadReplyBanTeeth\XF\Poll;
-
-
 
 use XF\Entity\Poll;
 use XF\Mvc\Entity\Entity;
@@ -13,6 +14,12 @@ use SV\ThreadReplyBanTeeth\XF\Entity\Thread as ThreadEntity;
  */
 class Thread extends XFCP_Thread
 {
+    public function canVote(Entity $content, Poll $poll, &$error = null)
+    {
+        /** @var ThreadEntity $content */
+        return parent::canVote($content, $poll, $error) && $content->svExtraReplyBanCheck(ThreadEntity::$svReplyBanOptionThread);
+    }
+
     public function canEdit(Entity $content, Poll $poll, &$error = null)
     {
         /** @var ThreadEntity $content */
