@@ -8,6 +8,7 @@ use XF\Mvc\Entity\AbstractCollection;
 use XF\Mvc\ParameterBag;
 use XF\Mvc\Reply\View as ViewReply;
 use function array_keys;
+use function count;
 
 /**
  * Extends \XF\Pub\Controller\Thread
@@ -37,11 +38,12 @@ class Thread extends XFCP_Thread
                 /** @var \SV\ThreadReplyBanTeeth\XF\Entity\Post $post */
                 foreach ($posts as $post)
                 {
-                    $userId = $post->user_id;
-                    $postsByUserIds[$userId] = $userId;
+                    $postUserId = $post->user_id;
+                    $postsByUserIds[$postUserId] = $postUserId;
                 }
                 unset($postsByUserIds[0]);
-                if ($postsByUserIds)
+                unset($postsByUserIds[$userId]);
+                if (count($postsByUserIds) !== 0)
                 {
                     $replyBannedUserIds = [];
                     $isReplyBannedRaw = \XF::finder('XF:ThreadReplyBan')
