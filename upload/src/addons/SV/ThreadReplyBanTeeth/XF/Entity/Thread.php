@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace SV\ThreadReplyBanTeeth\XF\Entity;
 
 use SV\ForumBan\Entity\ForumBan as ForumBanEntity;
-use XF\Entity\User;
 use XF\Mvc\Entity\AbstractCollection;
 use XF\Mvc\Entity\Structure;
 
@@ -144,13 +143,6 @@ class Thread extends XFCP_Thread
         if ($userId === 0)
         {
             return false;
-        }
-
-        /** @var User|bool $user */
-        $user = $this->em()->findCached('XF:User', $userId);
-        if (($user instanceof User) && $user->is_banned)
-        {
-            return true;
         }
 
         /** @var array<int,bool>|null $replyBannedUsers */

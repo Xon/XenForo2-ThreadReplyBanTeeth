@@ -1,8 +1,9 @@
 <xf:macro name="post" arg-post="!">
 <xf:set var="$thread" value="{$post.Thread}" />
-<xf:if is="$thread.hasOption('svHasReplyBanned') && $thread.getOption('svHasReplyBanned') && $thread.isUserReplyBanned($post.user_id)">
+<xf:set var="$userBanned" value="{{ $post.User && $post.User.is_banned }}" />
+<xf:if is="$thread.hasOption('svHasReplyBanned') && $thread.getOption('svHasReplyBanned') && ($userBanned || $thread.isUserReplyBanned($post.user_id))">
 	<div class="messageNotice messageNotice--reply-banned">
-		<xf:if is="$post.User && $post.User.is_banned">
+		<xf:if is="$userBanned">
 			{{ phrase('svThreadReplyBanTeeth_is_banned') }}
 		<xf:else />
 			{{ phrase('svThreadReplyBanTeeth_is_reply_banned') }}
