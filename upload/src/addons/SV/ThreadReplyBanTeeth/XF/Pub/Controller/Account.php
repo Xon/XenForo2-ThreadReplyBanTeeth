@@ -36,7 +36,7 @@ class Account extends XFCP_Account
 
         $filters = [];
 
-        $replyBanRepo = $this->repository('XF:ThreadReplyBan');
+        $replyBanRepo = \SV\StandardLib\Helper::repository(\XF\Repository\ThreadReplyBan::class);
         assert($replyBanRepo instanceof ThreadReplyBanRepo);
 
         $finder = $replyBanRepo->findReplyBansForList()
@@ -44,7 +44,7 @@ class Account extends XFCP_Account
                                ->limitByPage($page, $perPage);
 
         // only fetch for visible forums
-        $nodeRepo = $this->repository('XF:Node');
+        $nodeRepo = \SV\StandardLib\Helper::repository(\XF\Repository\Node::class);
         assert($nodeRepo instanceof NodeRepo);
         $nodes = $nodeRepo->getNodeList();
 

@@ -115,7 +115,7 @@ class Thread extends XFCP_Thread
 
     public function svExtraReplyBanCheck(string $option): bool
     {
-        if ($this->app()->options()->{$option} ?? true)
+        if (\XF::app()->options()->{$option} ?? true)
         {
             if ($this->isReplyBanned())
             {

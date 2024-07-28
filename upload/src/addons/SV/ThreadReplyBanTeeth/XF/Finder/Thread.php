@@ -22,7 +22,7 @@ class Thread extends XFCP_Thread
             return;
         }
 
-        $options = $this->app()->options();
+        $options = \XF::app()->options();
         if (($options->svEditReplyBan ?? true) ||
             ($options->svLikeReplyBan ?? true) ||
             ($options->svDeleteReplyBan ?? true))

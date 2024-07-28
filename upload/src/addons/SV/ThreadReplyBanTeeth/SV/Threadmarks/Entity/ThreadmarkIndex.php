@@ -50,7 +50,7 @@ class ThreadmarkIndex extends XFCP_ThreadmarkIndex
 
     protected function svExtraReplyBanCheck(): bool
     {
-        if ($this->app()->options()->svThreadmarkReplyBan ?? true)
+        if (\XF::app()->options()->svThreadmarkReplyBan ?? true)
         {
             if ($this->isReplyBanned())
             {

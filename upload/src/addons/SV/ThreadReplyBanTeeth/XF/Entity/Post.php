@@ -51,7 +51,7 @@ class Post extends XFCP_Post
 
     protected function svExtraReplyBanCheck(string $option): bool
     {
-        if ($this->app()->options()->{$option} ?? true)
+        if (\XF::app()->options()->{$option} ?? true)
         {
             $thread = $this->Thread;
             if ($thread !== null && $thread->isReplyBanned())
