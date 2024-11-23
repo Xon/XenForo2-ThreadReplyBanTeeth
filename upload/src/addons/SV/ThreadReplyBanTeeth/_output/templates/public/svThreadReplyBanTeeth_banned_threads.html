@@ -21,7 +21,7 @@
 							<dd><xf:date time="$replyBan.ban_date" /></dd>
 						</dl>
 					</xf:set>
-					<xf:macro template="thread_list_macros" name="item"
+					<xf:macro name="thread_list_macros::item"
 							  arg-thread="{$replyBan.Thread}"
 							  arg-chooseName="thread_ids"
 							  arg-showWatched="{{ false }}"
