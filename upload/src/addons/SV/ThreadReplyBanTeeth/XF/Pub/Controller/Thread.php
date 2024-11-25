@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace SV\ThreadReplyBanTeeth\XF\Pub\Controller;
 
+use SV\ForumBan\Finder\ForumBan as ForumBanFinder;
+use SV\StandardLib\Helper;
+use XF\Finder\ThreadReplyBan as ThreadReplyBanFinder;
 use XF\Mvc\Entity\AbstractCollection;
 use XF\Mvc\ParameterBag;
 use XF\Mvc\Reply\View as ViewReply;
@@ -11,7 +14,7 @@ use function array_keys;
 use function count;
 
 /**
- * Extends \XF\Pub\Controller\Thread
+ * @extends \XF\Pub\Controller\Thread
  */
 class Thread extends XFCP_Thread
 {
@@ -46,7 +49,7 @@ class Thread extends XFCP_Thread
                 if (count($postsByUserIds) !== 0)
                 {
                     $replyBannedUserIds = [];
-                    $isReplyBannedRaw = \SV\StandardLib\Helper::finder(\XF\Finder\ThreadReplyBan::class)
+                    $isReplyBannedRaw = Helper::finder(ThreadReplyBanFinder::class)
                                            ->where('thread_id', $thread->thread_id)
                                            ->where('user_id', array_keys($postsByUserIds))
                                            ->whereOr(['expiry_date', '=', 0],['expiry_date', '>=', \XF::$time])
@@ -70,7 +73,7 @@ class Thread extends XFCP_Thread
                     if (\XF::isAddOnActive('SV/ForumBan'))
                     {
                         $forumBannedUserIds = [];
-                        $isForumBannedRaw = \SV\StandardLib\Helper::finder(\SV\ForumBan\Finder\ForumBan::class)
+                        $isForumBannedRaw = Helper::finder(ForumBanFinder::class)
                             ->where('node_id', $thread->node_id)
                             ->where('user_id', array_keys($postsByUserIds))
                             ->whereOr(['expiry_date', '=', 0], ['expiry_date', '>=', \XF::$time])

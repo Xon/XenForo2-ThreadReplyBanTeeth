@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace SV\ThreadReplyBanTeeth\XF\Entity;
 
 /**
+ * @extends \XF\Entity\Post
  * @property-read ?Thread $Thread
  */
 class Post extends XFCP_Post
@@ -17,6 +18,7 @@ class Post extends XFCP_Post
 
     public function canHardMerge(&$error = null): bool
     {
+        /** @noinspection PhpUndefinedMethodInspection */
         return parent::canHardMerge($error) && $this->svExtraReplyBanCheck('svDeleteReplyBan');
     }
 
@@ -51,7 +53,7 @@ class Post extends XFCP_Post
 
     protected function svExtraReplyBanCheck(string $option): bool
     {
-        if (\XF::app()->options()->{$option} ?? true)
+        if (\XF::options()->{$option} ?? true)
         {
             $thread = $this->Thread;
             if ($thread !== null && $thread->isReplyBanned())

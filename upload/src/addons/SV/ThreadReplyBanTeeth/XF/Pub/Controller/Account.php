@@ -7,16 +7,16 @@ declare(strict_types=1);
 
 namespace SV\ThreadReplyBanTeeth\XF\Pub\Controller;
 
+use SV\StandardLib\Helper;
 use XF\Entity\ThreadReplyBan as ThreadReplyBanEntity;
 use XF\Mvc\Entity\ArrayCollection;
 use XF\Mvc\ParameterBag;
 use XF\Mvc\Reply\AbstractReply;
 use XF\Repository\ThreadReplyBan as ThreadReplyBanRepo;
 use XF\Repository\Node as NodeRepo;
-use function assert;
 
 /**
- * Extends \XF\Pub\Controller\Account
+ * @extends \XF\Pub\Controller\Account
  */
 class Account extends XFCP_Account
 {
@@ -28,31 +28,32 @@ class Account extends XFCP_Account
         }
         $visitor = \XF::visitor();
         $userId = (int)$visitor->user_id;
-        assert($userId !== 0);
+        if ($userId === 0)
+        {
+            return $this->notFound();
+        }
 
         $page = (int)$this->filterPage();
-        $perPage = (int)$this->options()->messagesPerPage;
+        $perPage = (int)\XF::options()->messagesPerPage;
         $this->assertCanonicalUrl($this->buildLink('account/thread-bans', null, ['page' => $page]));
 
         $filters = [];
 
-        $replyBanRepo = \SV\StandardLib\Helper::repository(\XF\Repository\ThreadReplyBan::class);
-        assert($replyBanRepo instanceof ThreadReplyBanRepo);
+        $replyBanRepo = Helper::repository(ThreadReplyBanRepo::class);
 
         $finder = $replyBanRepo->findReplyBansForList()
                                ->where('user_id', $userId)
                                ->limitByPage($page, $perPage);
 
         // only fetch for visible forums
-        $nodeRepo = \SV\StandardLib\Helper::repository(\XF\Repository\Node::class);
-        assert($nodeRepo instanceof NodeRepo);
+        $nodeRepo = Helper::repository(NodeRepo::class);
         $nodes = $nodeRepo->getNodeList();
 
         if ($nodes->count() !== 0)
         {
             $finder->where('Thread.node_id', $nodes->keys())
                    ->where('Thread.discussion_state', 'visible')
-                   ->with('Thread.full')
+                   ->with('Thread.full', true)
             ;
         }
         else
@@ -71,7 +72,6 @@ class Account extends XFCP_Account
             {
                 /** @var ThreadReplyBanEntity $replyBan */
                 $thread = $replyBan->Thread;
-                assert($thread !== null);
                 $thread->setOption('svForceIgnore', false);
             }
         }

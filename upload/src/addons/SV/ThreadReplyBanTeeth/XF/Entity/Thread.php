@@ -12,6 +12,9 @@ use SV\ForumBan\Entity\ForumBan as ForumBanEntity;
 use XF\Mvc\Entity\AbstractCollection;
 use XF\Mvc\Entity\Structure;
 
+/**
+ * @extends \XF\Entity\Thread
+ */
 class Thread extends XFCP_Thread
 {
     public static $svReplyBanOptionThreadmark = 'svThreadmarkReplyBan';
@@ -115,7 +118,7 @@ class Thread extends XFCP_Thread
 
     public function svExtraReplyBanCheck(string $option): bool
     {
-        if (\XF::app()->options()->{$option} ?? true)
+        if (\XF::options()->{$option} ?? true)
         {
             if ($this->isReplyBanned())
             {
@@ -253,7 +256,7 @@ class Thread extends XFCP_Thread
             $userId = (int)\XF::visitor()->user_id;
             if ($userId !== 0)
             {
-                $options = \XF::app()->options();
+                $options = \XF::options();
 
                 if (($options->svEditReplyBan ?? true) ||
                     ($options->svLikeReplyBan ?? true) ||

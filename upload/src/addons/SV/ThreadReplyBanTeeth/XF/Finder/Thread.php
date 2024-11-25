@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace SV\ThreadReplyBanTeeth\XF\Finder;
 
+/**
+ * @extends \XF\Finder\Thread
+ */
 class Thread extends XFCP_Thread
 {
     /** @var bool */
@@ -22,7 +25,7 @@ class Thread extends XFCP_Thread
             return;
         }
 
-        $options = \XF::app()->options();
+        $options = \XF::options();
         if (($options->svEditReplyBan ?? true) ||
             ($options->svLikeReplyBan ?? true) ||
             ($options->svDeleteReplyBan ?? true))

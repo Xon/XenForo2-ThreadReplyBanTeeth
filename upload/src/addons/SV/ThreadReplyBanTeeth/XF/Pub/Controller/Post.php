@@ -6,6 +6,9 @@ namespace SV\ThreadReplyBanTeeth\XF\Pub\Controller;
 
 use XF\Mvc\Reply\Exception as ExceptionReply;
 
+/**
+ * @extends \XF\Pub\Controller\Post
+ */
 class Post extends XFCP_Post
 {
     /**
@@ -20,7 +23,7 @@ class Post extends XFCP_Post
         $userId = (int)\XF::visitor()->user_id;
         if ($userId !== 0)
         {
-            $options = $this->options();
+            $options = \XF::options();
             if (($options->svEditReplyBan ?? true) ||
                 ($options->svLikeReplyBan ?? true) ||
                 ($options->svThreadmarkReplyBan ?? true) ||

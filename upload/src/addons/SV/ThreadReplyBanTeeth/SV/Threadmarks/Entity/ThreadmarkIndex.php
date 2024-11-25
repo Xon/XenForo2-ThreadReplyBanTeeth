@@ -8,11 +8,12 @@ declare(strict_types=1);
 namespace SV\ThreadReplyBanTeeth\SV\Threadmarks\Entity;
 
 use SV\Threadmarks\Entity\ThreadmarkIndexInterface;
-use XF\Entity\Thread;
+use SV\ThreadReplyBanTeeth\XF\Entity\Thread as ExtendedThreadEntity;
+use XF\Entity\Thread as ThreadEntity;
 use XF\Phrase;
 
 /**
- * Extends \SV\Threadmarks\Entity\ThreadmarkIndex
+ * @extends \SV\Threadmarks\Entity\ThreadmarkIndex
  */
 class ThreadmarkIndex extends XFCP_ThreadmarkIndex
 {
@@ -50,7 +51,7 @@ class ThreadmarkIndex extends XFCP_ThreadmarkIndex
 
     protected function svExtraReplyBanCheck(): bool
     {
-        if (\XF::app()->options()->svThreadmarkReplyBan ?? true)
+        if (\XF::options()->svThreadmarkReplyBan ?? true)
         {
             if ($this->isReplyBanned())
             {
@@ -71,9 +72,9 @@ class ThreadmarkIndex extends XFCP_ThreadmarkIndex
         }
 
         $container = $this->getIndexContent();
-        if ($container instanceof Thread)
+        if ($container instanceof ThreadEntity)
         {
-            /** @var \SV\ThreadReplyBanTeeth\XF\Entity\Thread $container */
+            /** @var ExtendedThreadEntity $container */
             return $container->isUserReplyBanned($userId);
         }
 
