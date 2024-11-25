@@ -8,8 +8,9 @@ declare(strict_types=1);
 
 namespace SV\ThreadReplyBanTeeth\XF\Entity;
 
-use SV\ForumBan\Entity\ForumBan as ForumBanEntity;
-use XF\Mvc\Entity\AbstractCollection;
+use SV\ForumBan\XF\Entity\User as ForumBanExtendedUserEntity;
+use XF\Entity\ThreadReplyBan as ThreadReplyBanEntity;
+use XF\Entity\User as UserEntity;
 use XF\Mvc\Entity\Structure;
 
 /**
@@ -156,6 +157,7 @@ class Thread extends XFCP_Thread
         if ($userIsReplyBanned === null)
         {
             $replyBans = $this->ReplyBans;
+            /** @var ThreadReplyBanEntity|null $replyBan */
             $replyBan = $replyBans[$userId] ?? null;
 
             if ($replyBan !== null)
@@ -186,15 +188,11 @@ class Thread extends XFCP_Thread
 
             if ($userIsForumBanned === null)
             {
-                /** @var \SV\ForumBan\XF\Entity\Thread $this */
-                /** @var ForumBanEntity[]|AbstractCollection $forumBans */
-                $forumBans = $this->SvForumBans;
-                $forumBan = $forumBans[$userId] ?? null;
-
-                if ($forumBan !== null)
+                /** @var ForumBanExtendedUserEntity|null $user */
+                $user = \XF::app()->find(UserEntity::class, $userId);
+                if ($user !== null && $user->isForumBanned($this->node_id))
                 {
-                    $expiryDate = (int)$forumBan->expiry_date;
-                    $userIsForumBanned = $expiryDate === 0 || $expiryDate >= \XF::$time;
+                    $userIsForumBanned = true;
                 }
                 $userIsForumBanned = $userIsForumBanned ?? false;
 

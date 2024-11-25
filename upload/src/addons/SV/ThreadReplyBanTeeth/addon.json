@@ -26,5 +26,12 @@
             "PHP 7.2.0+"
         ]
     },
+    "require-soft": {
+        "SV/CollaborativeThreads": [
+            "1.1.0",
+            "Forum reply ban v1.1.0+",
+            false
+        ]
+    },
     "icon": "fa-teeth"
 }
