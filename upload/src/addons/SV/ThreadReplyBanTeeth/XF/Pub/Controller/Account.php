@@ -53,7 +53,8 @@ class Account extends XFCP_Account
         {
             $finder->where('Thread.node_id', $nodes->keys())
                    ->where('Thread.discussion_state', 'visible')
-                   ->with('Thread.full', true)
+                   ->with('Thread', true)
+                   ->with('Thread.full')
             ;
         }
         else
