@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SV\ThreadReplyBanTeeth\XF\Pub\Controller;
 
 use SV\ForumBan\Finder\ForumBan as ForumBanFinder;
+use SV\ForumBan\XF\Entity\User as ForumBanUserEntity;
 use SV\StandardLib\Helper;
 use XF\Finder\ThreadReplyBan as ThreadReplyBanFinder;
 use XF\Mvc\Entity\AbstractCollection;
@@ -31,7 +32,8 @@ class Thread extends XFCP_Thread
             {
                 return $reply;
             }
-            $userId = (int)\XF::visitor()->user_id;
+            $visitor = \XF::visitor();
+            $userId = (int)$visitor->user_id;
             if ($userId !== 0 && (!$thread->hasOption('threadmark_category_id') || !$thread->getOption('threadmark_category_id')))
             {
                 /** @var AbstractCollection|array $posts */
@@ -61,11 +63,16 @@ class Thread extends XFCP_Thread
                     // negative cache
                     foreach ($posts as $post)
                     {
-                        $userId = $post->user_id;
-                        if (!isset($replyBannedUserIds[$userId]))
+                        $postUserId = $post->user_id;
+                        if (!isset($replyBannedUserIds[$postUserId]))
                         {
-                            $replyBannedUserIds[$userId] = false;
+                            $replyBannedUserIds[$postUserId] = false;
                         }
+                    }
+
+                    if ($thread->isReplyBanned())
+                    {
+                        $replyBannedUserIds[$userId] = true;
                     }
                     // update the post cache to avoid additional queries
                     $thread->setUsersAreReplyBanned($replyBannedUserIds);
@@ -93,6 +100,11 @@ class Thread extends XFCP_Thread
                             }
                         }
 
+                        /** @var ForumBanUserEntity $visitor */
+                        if ($visitor->isForumBanned($thread->node_id))
+                        {
+                            $forumBannedUserIds[$userId] = true;
+                        }
                         // update the post cache to avoid additional queries
                         $thread->setUsersAreForumBanned($forumBannedUserIds);
                     }
