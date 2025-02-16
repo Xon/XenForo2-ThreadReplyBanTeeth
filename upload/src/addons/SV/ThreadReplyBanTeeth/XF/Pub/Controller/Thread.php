@@ -11,6 +11,7 @@ use XF\Finder\ThreadReplyBan as ThreadReplyBanFinder;
 use XF\Mvc\Entity\AbstractCollection;
 use XF\Mvc\ParameterBag;
 use XF\Mvc\Reply\View as ViewReply;
+use function array_key_exists;
 use function array_keys;
 use function count;
 
@@ -64,7 +65,7 @@ class Thread extends XFCP_Thread
                     foreach ($posts as $post)
                     {
                         $postUserId = $post->user_id;
-                        if (!isset($replyBannedUserIds[$postUserId]))
+                        if (!array_key_exists($postUserId, $replyBannedUserIds))
                         {
                             $replyBannedUserIds[$postUserId] = false;
                         }
@@ -74,6 +75,7 @@ class Thread extends XFCP_Thread
                     {
                         $replyBannedUserIds[$userId] = true;
                     }
+                    unset($replyBannedUserIds[0]);
                     // update the post cache to avoid additional queries
                     $thread->setUsersAreReplyBanned($replyBannedUserIds);
 
@@ -94,7 +96,7 @@ class Thread extends XFCP_Thread
                         foreach ($posts as $post)
                         {
                             $userId = $post->user_id;
-                            if (!isset($forumBannedUserIds[$userId]))
+                            if (!array_key_exists($userId, $replyBannedUserIds))
                             {
                                 $forumBannedUserIds[$userId] = false;
                             }
@@ -105,10 +107,10 @@ class Thread extends XFCP_Thread
                         {
                             $forumBannedUserIds[$userId] = true;
                         }
+                        unset($forumBannedUserIds[0]);
                         // update the post cache to avoid additional queries
                         $thread->setUsersAreForumBanned($forumBannedUserIds);
                     }
-
                 }
             }
             else
