@@ -34,8 +34,8 @@ class Thread extends XFCP_Thread
                 return $reply;
             }
             $visitor = \XF::visitor();
-            $userId = (int)$visitor->user_id;
-            if ($userId !== 0 && (!$thread->hasOption('threadmark_category_id') || !$thread->getOption('threadmark_category_id')))
+            $visitorUserId = (int)$visitor->user_id;
+            if ($visitorUserId !== 0 && (!$thread->hasOption('threadmark_category_id') || !$thread->getOption('threadmark_category_id')))
             {
                 /** @var AbstractCollection|array $posts */
                 $posts = $reply->getParam('posts') ?? [];
@@ -48,7 +48,7 @@ class Thread extends XFCP_Thread
                     $postsByUserIds[$postUserId] = $postUserId;
                 }
                 unset($postsByUserIds[0]);
-                unset($postsByUserIds[$userId]);
+                unset($postsByUserIds[$visitorUserId]);
                 if (count($postsByUserIds) !== 0)
                 {
                     $replyBannedUserIds = [];
@@ -73,7 +73,7 @@ class Thread extends XFCP_Thread
 
                     if ($thread->isReplyBanned())
                     {
-                        $replyBannedUserIds[$userId] = true;
+                        $replyBannedUserIds[$visitorUserId] = true;
                     }
                     unset($replyBannedUserIds[0]);
                     // update the post cache to avoid additional queries
@@ -95,17 +95,17 @@ class Thread extends XFCP_Thread
                         // negative cache
                         foreach ($posts as $post)
                         {
-                            $userId = $post->user_id;
-                            if (!array_key_exists($userId, $replyBannedUserIds))
+                            $forumBannedUserId = $post->user_id;
+                            if (!array_key_exists($forumBannedUserId, $replyBannedUserIds))
                             {
-                                $forumBannedUserIds[$userId] = false;
+                                $forumBannedUserIds[$forumBannedUserId] = false;
                             }
                         }
 
                         /** @var ForumBanUserEntity $visitor */
                         if ($visitor->isForumBanned($thread->node_id))
                         {
-                            $forumBannedUserIds[$userId] = true;
+                            $forumBannedUserIds[$visitorUserId] = true;
                         }
                         unset($forumBannedUserIds[0]);
                         // update the post cache to avoid additional queries
