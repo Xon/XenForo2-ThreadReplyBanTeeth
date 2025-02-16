@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace SV\ThreadReplyBanTeeth\XF\Entity;
 
 use SV\ForumBan\XF\Entity\User as ForumBanExtendedUserEntity;
+use SV\StandardLib\Helper;
 use XF\Entity\ThreadReplyBan as ThreadReplyBanEntity;
 use XF\Entity\User as UserEntity;
 use XF\Mvc\Entity\Structure;
@@ -189,7 +190,7 @@ class Thread extends XFCP_Thread
             if ($userIsForumBanned === null)
             {
                 /** @var ForumBanExtendedUserEntity|null $user */
-                $user = \XF::app()->find(UserEntity::class, $userId);
+                $user = Helper::find(UserEntity::class, $userId);
                 if ($user !== null && $user->isForumBanned($this->node_id))
                 {
                     $userIsForumBanned = true;
