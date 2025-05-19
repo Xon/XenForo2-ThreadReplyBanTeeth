@@ -12,8 +12,8 @@
 </xf:if>
 </xf:macro>
 
-<xf:macro name="account_wrapper" globals="1">
-	<a class="blockLink {{ ($pageSelected == 'thread_bans') ? 'is-selected' : '' }}" href="{{ link('account/thread-bans') }}">
+<xf:macro name="account_wrapper" arg-pageSelected="!">
+	<a class="blockLink {{ ($pageSelected === 'thread_bans') ? 'is-selected' : '' }}" href="{{ link('account/thread-bans') }}">
 		{{ phrase('svThreadReplyBanTeeth_banned_from_threads') }}
 	</a>
 </xf:macro>

@@ -87,7 +87,9 @@ class Account extends XFCP_Account
             'replyBans' => $replyBans,
         ];
 
-        return $this->view('', 'svThreadReplyBanTeeth_banned_threads', $params);
+        $view = $this->view('XF:Account\ThreadBans', 'svThreadReplyBanTeeth_banned_threads', $params);
+
+        return $this->addAccountWrapperParams($view, 'thread_bans');
     }
 
 }

@@ -5,5 +5,5 @@
     "enabled": true,
     "action": "preg_replace",
     "find": "#[\\t\\ ]*<!--\\[XF:settings_links:bottom\\]-->#si",
-    "replace": "<xf:if is=\"$xf.options.svThreadReplyBanList\">\n<xf:macro name=\"svThreadReplyBanTeeth_macros::account_wrapper\" />\n</xf:if>\n$0"
+    "replace": "<xf:if is=\"$xf.options.svThreadReplyBanList\">\n<xf:macro name=\"svThreadReplyBanTeeth_macros::account_wrapper\"  arg-pageSelected=\"{$pageSelected}\" />\n</xf:if>\n$0"
 }
