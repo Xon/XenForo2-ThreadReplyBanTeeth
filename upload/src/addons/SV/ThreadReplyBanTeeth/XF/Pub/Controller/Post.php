@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SV\ThreadReplyBanTeeth\XF\Pub\Controller;
 
+use XF\Entity\Post as PostEntity;
 use XF\Mvc\Reply\Exception as ExceptionReply;
 
 /**
@@ -14,7 +15,7 @@ class Post extends XFCP_Post
     /**
      * @param int   $postId
      * @param array $extraWith
-     * @return \XF\Entity\Post
+     * @return PostEntity
      * @throws ExceptionReply
      * @noinspection PhpMissingReturnTypeInspection
      */

@@ -12,8 +12,8 @@ use XF\Entity\ThreadReplyBan as ThreadReplyBanEntity;
 use XF\Mvc\Entity\ArrayCollection;
 use XF\Mvc\ParameterBag;
 use XF\Mvc\Reply\AbstractReply;
-use XF\Repository\ThreadReplyBan as ThreadReplyBanRepo;
-use XF\Repository\Node as NodeRepo;
+use XF\Repository\ThreadReplyBan as ThreadReplyBanRepository;
+use XF\Repository\Node as NodeRepository;
 
 /**
  * @extends \XF\Pub\Controller\Account
@@ -39,14 +39,14 @@ class Account extends XFCP_Account
 
         $filters = [];
 
-        $replyBanRepo = Helper::repository(ThreadReplyBanRepo::class);
+        $replyBanRepo = Helper::repository(ThreadReplyBanRepository::class);
 
         $finder = $replyBanRepo->findReplyBansForList()
                                ->where('user_id', $userId)
                                ->limitByPage($page, $perPage);
 
         // only fetch for visible forums
-        $nodeRepo = Helper::repository(NodeRepo::class);
+        $nodeRepo = Helper::repository(NodeRepository::class);
         $nodes = $nodeRepo->getNodeList();
 
         if ($nodes->count() !== 0)
