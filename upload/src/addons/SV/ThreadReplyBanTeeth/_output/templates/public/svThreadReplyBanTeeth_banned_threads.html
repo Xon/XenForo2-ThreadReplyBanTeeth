@@ -1,7 +1,6 @@
-<xf:wrap template="account_wrapper">
-	<xf:set var="$pageSelected" value="thread_bans" />
-</xf:wrap>
 <xf:title page="{$page}">{{ phrase('svThreadReplyBanTeeth_banned_from_threads') }}</xf:title>
+
+<xf:wrap template="account_wrapper" />
 
 <xf:if is="$replyBans is not empty">
 	<div class="block-outer">
