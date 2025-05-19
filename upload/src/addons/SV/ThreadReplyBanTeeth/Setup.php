@@ -23,4 +23,10 @@ class Setup extends AbstractSetup
         $this->renameOption('SV_ThreadReplyBanTeeth_DeleteBan', 'svDeleteReplyBan');
         $this->renameOption('SV_ThreadReplyBanTeeth_LikeBan', 'svLikeReplyBan');
     }
+
+    // 2.11.0
+    public function upgrade1747651151Step1(): void
+    {
+        $this->renameOption('svReplyBanList', 'svThreadReplyBanList');
+    }
 }

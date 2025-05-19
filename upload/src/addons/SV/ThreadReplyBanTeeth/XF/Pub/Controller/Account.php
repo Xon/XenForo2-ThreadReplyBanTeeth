@@ -22,7 +22,7 @@ class Account extends XFCP_Account
 {
     public function actionThreadBans(ParameterBag $params): AbstractReply
     {
-        if (!(\XF::options()->svReplyBanList ?? true))
+        if (!(\XF::options()->svThreadReplyBanList ?? true))
         {
             return $this->notFound();
         }
