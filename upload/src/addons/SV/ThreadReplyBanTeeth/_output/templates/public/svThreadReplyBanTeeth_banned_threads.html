@@ -6,7 +6,7 @@
 	<div class="block-outer">
 		<xf:pagenav params="{$filters}"
 					page="{$page}" perpage="{$perPage}" total="{$total}"
-					link="account/thread-bans"
+					link="account/thread-bans" data="{$user}"
 					wrapperclass="block-outer-main" />
 	</div>
 	<div class="block-container">
@@ -45,7 +45,7 @@
 	</div>
 	<xf:pagenav params="{$filters}"
 				page="{$page}" perpage="{$perPage}" total="{$total}"
-				link="account/thread-bans"
+				link="account/thread-bans" data="{$user}"
 				wrapperclass="block-outer block-outer--after" />
 <xf:else />	
 	<div class="blockMessage">
