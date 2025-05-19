@@ -1,0 +1,65 @@
+<xf:title>{{ phrase('svForumBan_forum_bans:') }} {$user.username}</xf:title>
+
+<xf:breadcrumb href="{{ link('members', $user) }}">{$user.username}</xf:breadcrumb>
+
+<xf:set var="$linkReport" value="{{ is_addon_active('SV/ReportImprovements') }}" />
+
+<xf:if is="$bans is not empty">
+    <xf:form action="{{ link('members/forum-bans', $user) }}" class="block">
+        <div class="block-container">
+            <div class="block-body">
+                <xf:datalist>
+                    <xf:datarow rowtype="header">
+                        <xf:cell>{{ phrase('forum') }}</xf:cell>
+                        <xf:cell>{{ phrase('reason') }}</xf:cell>
+                        <xf:cell>{{ phrase('end_date') }}</xf:cell>
+						<xf:if is="$linkReport">
+						<xf:cell class="dataList-cell--min">{{ phrase('report') }}</xf:cell>
+						</xf:if>
+                    </xf:datarow>
+                    <xf:foreach loop="$bans" value="$ban">
+						<xf:set var="$thread" value="{$ban.Thread}" />
+						<xf:set var="$url" value="{{ $thread.canReplyBan() ? link('threads/reply-bans', $forum) : '' }}" />
+                        <xf:datarow rowclass="dataList-row--noHover">
+                            <xf:cell>
+                                <a href="{{ link('threads', $thread) }}">{$thread.title}</a>
+                            </xf:cell >
+                            <xf:cell href="{$url}">
+                                <xf:if is="$ban.reason">
+                                    {$ban.reason}
+                                <xf:else />
+                                    {{ phrase('n_a') }}
+                                </xf:if>
+                            </xf:cell>
+                            <xf:cell href="{$url}">
+                                <xf:if is="$ban.expiry_date">
+                                    <xf:date time="{$ban.expiry_date}" />
+                                <xf:else />
+                                    {{ phrase('permanent') }}
+                                </xf:if>
+                            </xf:cell>
+							<xf:if is="$linkReport">
+								<xf:cell class="dataList-cell--min">
+									<xf:if is="$ban.Report">
+										<a href="{{ link('reports', $ban.Report) }}">{{ phrase('report') }}</a>
+									<xf:else />
+										{{ phrase('n_a') }}
+									</xf:if>
+								</xf:cell>
+							</xf:if>
+                        </xf:datarow>
+                    </xf:foreach>
+                </xf:datalist>
+            </div>
+            <div class="block-footer">
+                <span class="block-footer-counter">{{ display_totals($bans, $total) }}</span>
+            </div>
+        </div>
+
+        <xf:pagenav page="{$page}" perpage="{$perPage}" total="{$total}"
+                    link="members/forum-bans" params="{$linkParams}" data="{$user}"
+                    wrapperclass="block-outer block-outer--after" />
+    </xf:form>
+<xf:else />
+    <div class="blockMessage">{{ phrase('no_results_found') }}</div>
+</xf:if>

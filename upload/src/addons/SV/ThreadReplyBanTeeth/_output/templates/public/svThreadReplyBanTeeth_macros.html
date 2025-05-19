@@ -17,3 +17,20 @@
 		{{ phrase('svThreadReplyBanTeeth_banned_from_threads') }}
 	</a>
 </xf:macro>
+
+<xf:macro name="member_tab" arg-user="!">
+	<xf:if is="$user.canViewThreadBans() && $user.thread_bans_count">
+		<a href="{{ link('members/thread-bans', $user) }}"
+		   class="tabs-tab"
+		   id="threadBans"
+		   role="tab">{{ phrase('svThreadReplyBanTeeth_thread_reply_bans_count', {'count': {$user.thread_bans_count}}) }}</a>
+	</xf:if>
+</xf:macro>
+
+<xf:macro name="member_pane" arg-user="!">
+	<xf:if is="$user.canViewThreadBans() && $user.thread_bans_count">
+		<li data-href="{{ link('members/thread-bans', $user) }}" role="tabpanel" aria-labelledby="threadBans">
+			<div class="blockMessage">{{ phrase('loading...') }}</div>
+		</li>
+	</xf:if>
+</xf:macro>

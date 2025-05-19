@@ -1,0 +1,9 @@
+{
+    "template": "member_view",
+    "description": "Add \"Banned threads\" pane",
+    "execution_order": 5991,
+    "enabled": true,
+    "action": "str_replace",
+    "find": "<!--[XF:tab_panes:end]-->",
+    "replace": "<xf:macro name=\"svThreadReplyBanTeeth_macros::member_pane\" arg-user=\"{$user}\" />\n\t$0"
+}
