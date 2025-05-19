@@ -15,10 +15,21 @@
 			<div class="structItemContainer">
 				<xf:foreach loop="$replyBans" value="$replyBan">
 					<xf:set var="$extra">
-						<dl class="pairs pairs--inline">
+						<dl class="pairs pairs--inline" style="display:block">
 							<dt>{{ phrase('svThreadReplyBanTeeth_ban_date') }}</dt>
 							<dd><xf:date time="$replyBan.ban_date" /></dd>
 						</dl>
+						<xf:if is="$replyBan.expiry_date">
+							<dl class="pairs pairs--inline" style="display:block">
+								<dt>{{ phrase('expiry') }}</dt>
+								<dd><xf:date time="$replyBan.expiry_date" /></dd>
+							</dl>
+						<xf:else />
+							<dl class="pairs pairs--inline pairs--noColon" style="display:block">
+								<dt></dt>
+								<dd>{{ phrase('expires_never') }}</dd>
+							</dl>
+						</xf:if>
 					</xf:set>
 					<xf:macro name="thread_list_macros::item"
 							  arg-thread="{$replyBan.Thread}"
