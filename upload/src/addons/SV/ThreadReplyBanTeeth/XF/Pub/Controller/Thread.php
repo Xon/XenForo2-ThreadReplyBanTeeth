@@ -79,7 +79,7 @@ class Thread extends XFCP_Thread
                     // update the post cache to avoid additional queries
                     $thread->setUsersAreReplyBanned($replyBannedUserIds);
 
-                    if (\XF::isAddOnActive('SV/ForumBan'))
+                    if (Helper::isAddOnActive('SV/ForumBan'))
                     {
                         $forumBannedUserIds = [];
                         $isForumBannedRaw = Helper::finder(ForumBanFinder::class)

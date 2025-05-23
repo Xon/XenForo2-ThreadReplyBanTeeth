@@ -180,7 +180,7 @@ class Thread extends XFCP_Thread
             return true;
         }
 
-        if (\XF::isAddOnActive('SV/ForumBan'))
+        if (Helper::isAddOnActive('SV/ForumBan'))
         {
             /** @var array<int,bool>|null $forumBannedUsers */
             $forumBannedUsers = $this->_getterCache['svForumBannedUserIds'] ?? null;

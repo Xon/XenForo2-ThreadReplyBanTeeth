@@ -67,7 +67,7 @@ class Account extends XFCP_Account
         $this->assertValidPage($page, $perPage, $total, 'account/thread-bans', null);
 
         $replyBans = $total !== 0 ? $finder->fetch() : new ArrayCollection([]);
-        if (\XF::isAddOnActive('SV/ExtendedIgnore'))
+        if (Helper::isAddOnActive('SV/ExtendedIgnore'))
         {
             foreach ($replyBans as $replyBan)
             {
