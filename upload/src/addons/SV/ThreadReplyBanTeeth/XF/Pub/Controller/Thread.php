@@ -92,7 +92,7 @@ class Thread extends XFCP_Thread
                         // negative cache
                         foreach ($postsByUserIds as $forumBannedUserId)
                         {
-                            if (!array_key_exists($forumBannedUserId, $replyBannedUserIds))
+                            if (!array_key_exists($forumBannedUserId, $forumBannedUserIds))
                             {
                                 $forumBannedUserIds[$forumBannedUserId] = false;
                             }
