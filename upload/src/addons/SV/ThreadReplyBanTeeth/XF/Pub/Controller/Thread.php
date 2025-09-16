@@ -62,28 +62,25 @@ class Thread extends XFCP_Thread
                         $replyBannedUserIds[$row['user_id']] = true;
                     }
                     // negative cache
-                    foreach ($posts as $post)
+                    foreach ($postsByUserIds as $postUserId)
                     {
-                        $postUserId = $post->user_id;
                         if (!array_key_exists($postUserId, $replyBannedUserIds))
                         {
                             $replyBannedUserIds[$postUserId] = false;
                         }
                     }
 
-                    if ($thread->isReplyBanned())
-                    {
-                        $replyBannedUserIds[$visitorUserId] = true;
-                    }
+                    $replyBannedUserIds[$visitorUserId] = $thread->isReplyBanned();
                     unset($replyBannedUserIds[0]);
                     // update the post cache to avoid additional queries
                     $thread->setUsersAreReplyBanned($replyBannedUserIds);
 
                     if (Helper::isAddOnActive('SV/ForumBan'))
                     {
+                        $nodeId = $thread->node_id;
                         $forumBannedUserIds = [];
                         $isForumBannedRaw = Helper::finder(ForumBanFinder::class)
-                            ->where('node_id', $thread->node_id)
+                            ->where('node_id', $nodeId)
                             ->where('user_id', array_keys($postsByUserIds))
                             ->whereOr(['expiry_date', '=', 0], ['expiry_date', '>=', \XF::$time])
                             ->fetchRaw(['fetchOnly' => ['user_id']]);
@@ -93,9 +90,8 @@ class Thread extends XFCP_Thread
                         }
 
                         // negative cache
-                        foreach ($posts as $post)
+                        foreach ($postsByUserIds as $forumBannedUserId)
                         {
-                            $forumBannedUserId = $post->user_id;
                             if (!array_key_exists($forumBannedUserId, $replyBannedUserIds))
                             {
                                 $forumBannedUserIds[$forumBannedUserId] = false;
@@ -103,10 +99,7 @@ class Thread extends XFCP_Thread
                         }
 
                         /** @var ForumBanUserEntity $visitor */
-                        if ($visitor->isForumBanned($thread->node_id))
-                        {
-                            $forumBannedUserIds[$visitorUserId] = true;
-                        }
+                        $forumBannedUserIds[$visitorUserId] = $visitor->isForumBanned($nodeId);
                         unset($forumBannedUserIds[0]);
                         // update the post cache to avoid additional queries
                         $thread->setUsersAreForumBanned($forumBannedUserIds);
